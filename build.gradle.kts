@@ -26,9 +26,14 @@ dependencies {
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-mysql")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("io.springfox:springfox-swagger2:3.0.0")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+
 	runtimeOnly("com.mysql:mysql-connector-j")
+
+	//Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
