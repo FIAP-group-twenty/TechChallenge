@@ -1,22 +1,24 @@
 package br.group.twenty.challenge.config
 
+import org.springdoc.core.models.GroupedOpenApi
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import springfox.documentation.builders.PathSelectors
-import springfox.documentation.builders.RequestHandlerSelectors
-import springfox.documentation.spi.DocumentationType
-import springfox.documentation.spring.web.plugins.Docket
-import springfox.documentation.swagger2.annotations.EnableSwagger2
+import org.springframework.http.HttpHeaders
 
 @Configuration
-@EnableSwagger2
-class SwaggerConfig {
+class OpenApiConfig {
     @Bean
-    fun api(): Docket {
-        return Docket(DocumentationType.SWAGGER_2)
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("br.group.twenty.challenge"))
-            .paths(PathSelectors.any())
+    fun customOpenAPI(): GroupedOpenApi {
+        return GroupedOpenApi.builder()
+            .group("apiv1")
+            .pathsToMatch("/apiv1/**")
             .build()
+    }
+
+    @Bean
+    fun httpHeaders(): HttpHeaders {
+        val headers = HttpHeaders()
+        headers.add("X-Custom-Header", "Custom Value")
+        return headers
     }
 }

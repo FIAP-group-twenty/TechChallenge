@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
-@RequestMapping("/is-alive")
+@RequestMapping("/apiv1/is-alive")
 class IsAlive {
     @GetMapping
     fun isAlive(): Boolean = true

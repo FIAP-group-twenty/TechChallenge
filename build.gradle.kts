@@ -26,7 +26,7 @@ dependencies {
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-mysql")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("io.springfox:springfox-swagger2:3.0.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
