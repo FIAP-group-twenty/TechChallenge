@@ -1,6 +1,8 @@
-package br.group.twenty.challenge.config
+package br.group.twenty.challenge.infra.config
 
 import org.springdoc.core.models.GroupedOpenApi
+import org.springdoc.core.properties.SpringDocConfigProperties
+import org.springdoc.core.properties.SwaggerUiConfigParameters
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
@@ -10,8 +12,8 @@ class OpenApiConfig {
     @Bean
     fun customOpenAPI(): GroupedOpenApi {
         return GroupedOpenApi.builder()
-            .group("apiv1")
-            .pathsToMatch("/apiv1/**")
+            .group("API")
+            .packagesToScan("br.group.twenty.challenge")
             .build()
     }
 
@@ -21,4 +23,9 @@ class OpenApiConfig {
         headers.add("X-Custom-Header", "Custom Value")
         return headers
     }
+    @Bean
+    fun springDocConfigProperties(): SpringDocConfigProperties {
+        return SpringDocConfigProperties()
+    }
+
 }
