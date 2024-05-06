@@ -15,6 +15,12 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.jar {
+	manifest {
+		attributes["Main-Class"] = "br.group.twenty.challenge.TechApplication"
+	}
+}
+
 repositories {
 	mavenCentral()
 }
