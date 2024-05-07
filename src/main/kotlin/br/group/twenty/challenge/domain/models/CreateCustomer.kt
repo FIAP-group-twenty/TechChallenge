@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.infra.data.model
+package br.group.twenty.challenge.domain.models
 
 data class CreateCustomer(
     val name: String,

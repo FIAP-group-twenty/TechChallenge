@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.config
+package br.group.twenty.challenge.api.configs
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

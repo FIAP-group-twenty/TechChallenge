@@ -1,9 +1,9 @@
 package br.group.twenty.challenge.tech.api
 
-import br.group.twenty.challenge.infra.data.model.CreateCustomer
-import br.group.twenty.challenge.infra.persistence.model.CustomerEntity
-import br.group.twenty.challenge.infra.persistence.repository.CustomerJpaRepository
-import br.group.twenty.challenge.domain.service.CustomerService
+import br.group.twenty.challenge.domain.models.CreateCustomer
+import br.group.twenty.challenge.infra.models.CustomerEntity
+import br.group.twenty.challenge.infra.repositories.CustomerJpaRepository
+import br.group.twenty.challenge.application.services.CustomerService
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
