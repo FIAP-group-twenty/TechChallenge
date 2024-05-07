@@ -1,8 +1,8 @@
-package br.group.twenty.challenge.infra.data.adapter
+package br.group.twenty.challenge.infra.adapters
 
-import br.group.twenty.challenge.domain.model.Customer
-import br.group.twenty.challenge.domain.port.FindCustomerPort
-import br.group.twenty.challenge.infra.persistence.repository.CustomerJpaRepository
+import br.group.twenty.challenge.domain.models.Customer
+import br.group.twenty.challenge.domain.ports.FindCustomerPort
+import br.group.twenty.challenge.infra.repositories.CustomerJpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository

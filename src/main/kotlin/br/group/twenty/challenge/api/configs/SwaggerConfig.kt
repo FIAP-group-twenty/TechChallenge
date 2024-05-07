@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.config
+package br.group.twenty.challenge.api.configs
 
 import org.springdoc.core.models.GroupedOpenApi
 import org.springdoc.core.properties.SpringDocConfigProperties

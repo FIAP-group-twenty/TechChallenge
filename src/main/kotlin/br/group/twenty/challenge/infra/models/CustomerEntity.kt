@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.infra.persistence.model
+package br.group.twenty.challenge.infra.models
 
 import jakarta.persistence.*
 

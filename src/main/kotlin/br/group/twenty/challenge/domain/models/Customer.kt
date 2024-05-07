@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.domain.model
+package br.group.twenty.challenge.domain.models
 
 data class Customer(
     val id: Int? = null,
