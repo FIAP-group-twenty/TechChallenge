@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.application
+package br.group.twenty.challenge
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -1,7 +1,6 @@
 package br.group.twenty.challenge.tech.api
 
 import br.group.twenty.challenge.domain.models.CreateCustomer
-import br.group.twenty.challenge.infra.adapters.FindCustomerAdapter
 import br.group.twenty.challenge.infra.models.CustomerEntity
 import br.group.twenty.challenge.infra.repositories.CustomerJpaRepository
 import br.group.twenty.challenge.application.services.CustomerService
