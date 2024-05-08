@@ -2,13 +2,12 @@ package br.group.twenty.challenge.infra.models
 
 import jakarta.persistence.*
 
-
 @Entity
 @Table(name = "tb_customer")
 data class CustomerEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id_customer: Int? = null,
+    val idCustomer: Int? = null,
     val name: String,
     val email: String,
     val cpf: String
