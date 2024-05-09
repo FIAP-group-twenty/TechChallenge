@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-
 class CustomerEntityServiceTest {
 //    private val customerJpaRepositoryMock = mockk<CustomerJpaRepository>()
 //    private val service = CustomerService(customerJpaRepositoryMock)
