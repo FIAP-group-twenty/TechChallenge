@@ -1,12 +1,16 @@
 package br.group.twenty.challenge.infra.models
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType.IDENTITY
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 
 @Entity
 @Table(name = "tb_product")
 data class ProductEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     val idProduct: Int? = null,
     var name: String,
     var category: String,
