@@ -7,8 +7,7 @@ import br.group.twenty.challenge.infra.repositories.CustomerJpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-class CreateCustomerAdapter(private val repository: CustomerJpaRepository) :
-    CreateCustomerOutputPort {
+class CreateCustomerAdapter(private val repository: CustomerJpaRepository) : CreateCustomerOutputPort {
 
     override fun createCustomer(createCustomerModel: CreateCustomerModel): CustomerEntity {
         return repository.save(

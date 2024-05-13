@@ -1,12 +1,16 @@
 package br.group.twenty.challenge.infra.models
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType.IDENTITY
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 
 @Entity
 @Table(name = "tb_customer")
 data class CustomerEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     val idCustomer: Int? = null,
     val name: String,
     val email: String,
