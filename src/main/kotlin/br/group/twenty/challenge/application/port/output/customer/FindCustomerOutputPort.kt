@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.application.port.output
+package br.group.twenty.challenge.application.port.output.customer
 
 import br.group.twenty.challenge.infra.models.CustomerEntity
 

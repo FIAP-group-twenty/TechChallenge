@@ -1,11 +1,10 @@
 package br.group.twenty.challenge.api.controllers
 
-import br.group.twenty.challenge.application.usecases.CreateCustomerUseCase
-import br.group.twenty.challenge.application.usecases.FindCustomerUseCase
-import br.group.twenty.challenge.domain.models.CreateCustomer
-import br.group.twenty.challenge.domain.models.Customer
-import org.springframework.http.HttpStatus.CREATED
-import org.springframework.http.HttpStatus.NOT_FOUND
+import br.group.twenty.challenge.application.adapters.customer.CreateCustomer
+import br.group.twenty.challenge.application.adapters.customer.FindCustomer
+import br.group.twenty.challenge.domain.models.customer.CreateCustomerModel
+import br.group.twenty.challenge.domain.models.customer.Customer
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
