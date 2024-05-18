@@ -6,6 +6,7 @@ import br.group.twenty.challenge.infra.models.OrderEntity
 import br.group.twenty.challenge.infra.repositories.OrderJpaRepository
 import org.springframework.stereotype.Repository
 
+@Repository
 class CreateOrderAdapter(
     private val repository: OrderJpaRepository
 ) : CreateOrderOutputPort {

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository
 class FindProductAdapter(private val repository: ProductJpaRepository) : FindProductOutputPort {
 
     override fun findProductById(id: Int): ProductEntity? {
-        return repository.findProductById(id)
+        return repository.findByIdProduct(id)
     }
 }

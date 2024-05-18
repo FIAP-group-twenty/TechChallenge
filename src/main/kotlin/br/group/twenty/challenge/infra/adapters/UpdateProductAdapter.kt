@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class UpdateProductAdapter(private val repository: ProductJpaRepository) : UpdateProductOutputPort {
     override fun updateProduct(id: Int, updatedProduct: Product): ProductEntity? {
-        val existingProduct = repository.findProductById(id)
+        val existingProduct = repository.findByIdProduct(id)
         if (existingProduct != null) {
             // Update the fields of the existing product with the new values
             existingProduct.apply {

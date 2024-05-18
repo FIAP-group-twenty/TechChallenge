@@ -37,7 +37,7 @@ class ProductService(
         if (repository.findProductById(id) != null) {
             val updatedProductEntity = repository.updateProduct(id, updatedProduct)
             return Product(
-                updatedProductEntity.idProduct,
+                updatedProductEntity!!.idProduct,
                 updatedProductEntity.name,
                 updatedProductEntity.category,
                 updatedProductEntity.price,
@@ -52,7 +52,7 @@ class ProductService(
         try {
             repository.findProductById(id)?.apply {
                 repository.deleteProduct(id).apply {
-                    return Product(this.idProduct, name, category, price, description)
+                    return Product(this!!.idProduct, name, category, price, description)
                 }
             }
             return null

@@ -3,5 +3,5 @@ create table tb_product(
     name varchar(200) not null,
     category varchar(200) not null,
     price varchar(200) not null,
-    descricao varchar(200) not null
+    description varchar(200) not null
 );

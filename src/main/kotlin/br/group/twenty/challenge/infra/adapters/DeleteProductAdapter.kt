@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class DeleteProductAdapter(private val repository: ProductJpaRepository) : DeleteProductOutputPort {
     override fun deleteProduct(id: Int): ProductEntity? {
-        val existingProduct = repository.findProductById(id)
+        val existingProduct = repository.findByIdProduct(id)
 
         existingProduct?.let { repository.delete(it) }
 
