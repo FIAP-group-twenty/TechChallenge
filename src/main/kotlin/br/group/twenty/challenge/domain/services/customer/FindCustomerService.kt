@@ -1,9 +1,11 @@
-package br.group.twenty.challenge.domain.services
+package br.group.twenty.challenge.domain.services.customer
 
-import br.group.twenty.challenge.application.port.input.FindCustomerInputPort
-import br.group.twenty.challenge.application.port.output.FindCustomerOutputPort
-import br.group.twenty.challenge.domain.models.Customer
+import br.group.twenty.challenge.application.port.input.customer.FindCustomerInputPort
+import br.group.twenty.challenge.application.port.output.customer.FindCustomerOutputPort
+import br.group.twenty.challenge.domain.models.customer.Customer
+import org.springframework.stereotype.Service
 
+@Service
 class FindCustomerService(
     private val repository: FindCustomerOutputPort
 ) : FindCustomerInputPort {
