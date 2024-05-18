@@ -1,6 +1,6 @@
-package br.group.twenty.challenge.infra.adapters
+package br.group.twenty.challenge.infra.adapters.customer
 
-import br.group.twenty.challenge.application.port.output.FindCustomerOutputPort
+import br.group.twenty.challenge.application.port.output.customer.FindCustomerOutputPort
 import br.group.twenty.challenge.infra.models.CustomerEntity
 import br.group.twenty.challenge.infra.repositories.CustomerJpaRepository
 import org.springframework.stereotype.Repository

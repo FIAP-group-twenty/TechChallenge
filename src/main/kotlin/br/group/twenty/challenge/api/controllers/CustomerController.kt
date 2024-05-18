@@ -1,9 +1,9 @@
 package br.group.twenty.challenge.api.controllers
 
-import br.group.twenty.challenge.application.adapters.CreateCustomer
-import br.group.twenty.challenge.application.adapters.FindCustomer
-import br.group.twenty.challenge.domain.models.CreateCustomerModel
-import br.group.twenty.challenge.domain.models.Customer
+import br.group.twenty.challenge.application.adapters.customer.CreateCustomer
+import br.group.twenty.challenge.application.adapters.customer.FindCustomer
+import br.group.twenty.challenge.domain.models.customer.CreateCustomerModel
+import br.group.twenty.challenge.domain.models.customer.Customer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

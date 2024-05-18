@@ -1,7 +1,7 @@
-package br.group.twenty.challenge.infra.adapters
+package br.group.twenty.challenge.infra.adapters.customer
 
-import br.group.twenty.challenge.application.port.output.CreateCustomerOutputPort
-import br.group.twenty.challenge.domain.models.CreateCustomerModel
+import br.group.twenty.challenge.application.port.output.customer.CreateCustomerOutputPort
+import br.group.twenty.challenge.domain.models.customer.CreateCustomerModel
 import br.group.twenty.challenge.infra.models.CustomerEntity
 import br.group.twenty.challenge.infra.repositories.CustomerJpaRepository
 import org.springframework.stereotype.Repository
