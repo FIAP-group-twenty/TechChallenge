@@ -1,7 +1,7 @@
 package br.group.twenty.challenge.domain.services.product
 
-import br.group.twenty.challenge.application.port.input.FindProductInputPort
-import br.group.twenty.challenge.application.port.output.FindProductOutputPort
+import br.group.twenty.challenge.application.port.input.product.FindProductInputPort
+import br.group.twenty.challenge.application.port.output.product.FindProductOutputPort
 import br.group.twenty.challenge.domain.models.product.Product
 
 class FindProductService(

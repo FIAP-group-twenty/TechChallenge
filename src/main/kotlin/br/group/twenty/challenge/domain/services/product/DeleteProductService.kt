@@ -1,8 +1,8 @@
 package br.group.twenty.challenge.domain.services.product
 
-import br.group.twenty.challenge.application.port.input.DeleteProductInputPort
-import br.group.twenty.challenge.application.port.output.DeleteProductOutputPort
-import br.group.twenty.challenge.application.port.output.FindProductOutputPort
+import br.group.twenty.challenge.application.port.input.product.DeleteProductInputPort
+import br.group.twenty.challenge.application.port.output.product.DeleteProductOutputPort
+import br.group.twenty.challenge.application.port.output.product.FindProductOutputPort
 import br.group.twenty.challenge.domain.models.product.Product
 
 class DeleteProductService(

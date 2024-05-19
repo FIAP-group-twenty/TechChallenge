@@ -3,7 +3,7 @@ package br.group.twenty.challenge.api.controllers
 import br.group.twenty.challenge.application.adapters.product.CreateProduct
 import br.group.twenty.challenge.application.adapters.product.DeleteProduct
 import br.group.twenty.challenge.application.adapters.product.FindProduct
-import br.group.twenty.challenge.application.port.output.UpdateProductOutputPort
+import br.group.twenty.challenge.application.port.output.product.UpdateProductOutputPort
 import br.group.twenty.challenge.domain.models.product.Product
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.HttpStatus.NOT_FOUND

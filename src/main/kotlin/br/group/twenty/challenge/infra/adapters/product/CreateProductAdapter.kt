@@ -1,6 +1,6 @@
-package br.group.twenty.challenge.infra.adapters
+package br.group.twenty.challenge.infra.adapters.product
 
-import br.group.twenty.challenge.application.port.output.CreateProductOutputPort
+import br.group.twenty.challenge.application.port.output.product.CreateProductOutputPort
 import br.group.twenty.challenge.domain.models.product.Product
 import br.group.twenty.challenge.infra.models.ProductEntity
 import br.group.twenty.challenge.infra.repositories.ProductJpaRepository
