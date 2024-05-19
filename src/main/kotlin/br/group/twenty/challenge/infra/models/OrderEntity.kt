@@ -2,7 +2,6 @@ package br.group.twenty.challenge.infra.models
 
 import jakarta.persistence.*
 import org.jetbrains.annotations.NotNull
-import org.springframework.cglib.core.Local
 import java.math.BigDecimal
 import java.time.LocalDateTime
 

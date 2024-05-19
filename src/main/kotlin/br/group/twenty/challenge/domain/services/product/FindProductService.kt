@@ -1,8 +1,8 @@
-package br.group.twenty.challenge.domain.services
+package br.group.twenty.challenge.domain.services.product
 
 import br.group.twenty.challenge.application.port.input.FindProductInputPort
 import br.group.twenty.challenge.application.port.output.FindProductOutputPort
-import br.group.twenty.challenge.domain.models.Product
+import br.group.twenty.challenge.domain.models.product.Product
 
 class FindProductService(
     private val repository: FindProductOutputPort

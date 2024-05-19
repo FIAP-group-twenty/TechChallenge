@@ -1,6 +1,6 @@
 package br.group.twenty.challenge.infra.adapters.product
 
-import br.group.twenty.challenge.domain.models.Product
+import br.group.twenty.challenge.domain.models.product.Product
 import br.group.twenty.challenge.domain.ports.ProductPort
 import br.group.twenty.challenge.infra.adapters.CreateProductAdapter
 import br.group.twenty.challenge.infra.adapters.DeleteProductAdapter

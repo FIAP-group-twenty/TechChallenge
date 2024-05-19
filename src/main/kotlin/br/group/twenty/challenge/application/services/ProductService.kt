@@ -4,7 +4,7 @@ import br.group.twenty.challenge.application.usecases.CreateProductUseCase
 import br.group.twenty.challenge.application.usecases.DeleteProductUseCase
 import br.group.twenty.challenge.application.usecases.FindProductUseCase
 import br.group.twenty.challenge.application.usecases.UpdateProductUseCase
-import br.group.twenty.challenge.domain.models.Product
+import br.group.twenty.challenge.domain.models.product.Product
 import br.group.twenty.challenge.domain.ports.ProductPort
 
 class ProductService(

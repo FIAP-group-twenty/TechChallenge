@@ -1,10 +1,9 @@
-package br.group.twenty.challenge.domain.services
+package br.group.twenty.challenge.domain.services.product
 
 import br.group.twenty.challenge.application.port.input.DeleteProductInputPort
-import br.group.twenty.challenge.application.port.input.FindProductInputPort
 import br.group.twenty.challenge.application.port.output.DeleteProductOutputPort
 import br.group.twenty.challenge.application.port.output.FindProductOutputPort
-import br.group.twenty.challenge.domain.models.Product
+import br.group.twenty.challenge.domain.models.product.Product
 
 class DeleteProductService(
     private val repository: DeleteProductOutputPort,

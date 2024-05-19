@@ -1,6 +1,6 @@
 package br.group.twenty.challenge.infra.adapters
 
-import br.group.twenty.challenge.domain.models.CreateCustomer
+import br.group.twenty.challenge.domain.models.customer.CreateCustomer
 import br.group.twenty.challenge.domain.ports.CustomerPort
 import br.group.twenty.challenge.infra.models.CustomerEntity
 import br.group.twenty.challenge.infra.repositories.CustomerJpaRepository

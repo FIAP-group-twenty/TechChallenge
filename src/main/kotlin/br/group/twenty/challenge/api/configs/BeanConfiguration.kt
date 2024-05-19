@@ -1,26 +1,61 @@
 package br.group.twenty.challenge.api.configs
 
+import br.group.twenty.challenge.application.adapters.customer.CreateCustomer
+import br.group.twenty.challenge.application.adapters.customer.CreateCustomerAdapter
+import br.group.twenty.challenge.application.adapters.customer.FindCustomer
+import br.group.twenty.challenge.application.adapters.customer.FindCustomerAdapter
 import br.group.twenty.challenge.application.adapters.order.CreateOrder
 import br.group.twenty.challenge.application.adapters.order.CreateOrderAdapter
+import br.group.twenty.challenge.application.adapters.product.*
+import br.group.twenty.challenge.application.port.input.CreateProductInputPort
+import br.group.twenty.challenge.application.port.input.DeleteProductInputPort
+import br.group.twenty.challenge.application.port.input.FindProductInputPort
+import br.group.twenty.challenge.application.port.input.customer.CreateCustomerInputPort
+import br.group.twenty.challenge.application.port.input.customer.FindCustomerInputPort
 import br.group.twenty.challenge.application.port.input.order.CreateOrderInputPort
 import br.group.twenty.challenge.application.port.output.CreateProductOutputPort
+import br.group.twenty.challenge.application.port.output.DeleteProductOutputPort
+import br.group.twenty.challenge.application.port.output.FindProductOutputPort
+import br.group.twenty.challenge.application.port.output.customer.CreateCustomerOutputPort
+import br.group.twenty.challenge.application.port.output.customer.FindCustomerOutputPort
 import br.group.twenty.challenge.application.port.output.order.CreateOrderOutputPort
-import br.group.twenty.challenge.application.services.CustomerService
-import br.group.twenty.challenge.application.services.ProductService
-import br.group.twenty.challenge.application.usecases.CreateCustomerUseCase
-import br.group.twenty.challenge.application.usecases.CreateProductUseCase
-import br.group.twenty.challenge.domain.ports.CustomerPort
-import br.group.twenty.challenge.domain.ports.ProductPort
+import br.group.twenty.challenge.domain.services.customer.CreateCustomerService
+import br.group.twenty.challenge.domain.services.customer.FindCustomerService
 import br.group.twenty.challenge.domain.services.order.CreateOrderService
+import br.group.twenty.challenge.domain.services.product.CreateProductService
+import br.group.twenty.challenge.domain.services.product.DeleteProductService
+import br.group.twenty.challenge.domain.services.product.FindProductService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class BeanConfiguration(val orderRepository: CreateOrderOutputPort) {
+class BeanConfiguration(
+    val orderRepository: CreateOrderOutputPort,
+    val createCustomerRepository: CreateCustomerOutputPort,
+    val findCustomerRepository: FindCustomerOutputPort,
+    val createProductRepository: CreateProductOutputPort,
+    val findProductRepository: FindProductOutputPort,
+    val deleteProductRepository: DeleteProductOutputPort,
+) {
 
     @Bean
-    fun createCustomer(repository: CustomerPort): CreateCustomerUseCase {
-        return CustomerService(repository)
+    fun createPortCustomer(): CreateCustomerInputPort {
+        return CreateCustomerService(createCustomerRepository, findCustomerRepository)
+    }
+
+    @Bean
+    fun createAdapterCustomer(): CreateCustomer {
+        return CreateCustomerAdapter(createPortCustomer())
+    }
+
+    @Bean
+    fun findPortCustomer(): FindCustomerInputPort {
+        return FindCustomerService(findCustomerRepository)
+    }
+
+    @Bean
+    fun findAdapterCustomer(): FindCustomer {
+        return FindCustomerAdapter(findPortCustomer())
     }
 
     @Bean
@@ -34,7 +69,32 @@ class BeanConfiguration(val orderRepository: CreateOrderOutputPort) {
     }
 
     @Bean
-    fun createProduct(repository: ProductPort): CreateProductUseCase {
-        return ProductService(repository)
+    fun createPortProduct(): CreateProductInputPort {
+        return CreateProductService(createProductRepository)
+    }
+
+    @Bean
+    fun createProduct(): CreateProduct {
+        return CreateProductAdapter(createPortProduct())
+    }
+
+    @Bean
+    fun findPortProduct(): FindProductInputPort {
+        return FindProductService(findProductRepository)
+    }
+
+    @Bean
+    fun findProduct(): FindProduct {
+        return FindProductAdapter(findPortProduct())
+    }
+
+    @Bean
+    fun deletePortProduct(): DeleteProductInputPort {
+        return DeleteProductService(deleteProductRepository, findProductRepository)
+    }
+
+    @Bean
+    fun deleteProduct(): DeleteProduct {
+        return DeleteProductAdapter(deletePortProduct())
     }
 }

@@ -1,33 +1,26 @@
 package br.group.twenty.challenge.api.controllers
 
-import br.group.twenty.challenge.application.usecases.CreateProductUseCase
-import br.group.twenty.challenge.application.usecases.DeleteProductUseCase
-import br.group.twenty.challenge.application.usecases.FindProductUseCase
-import br.group.twenty.challenge.application.usecases.UpdateProductUseCase
-import br.group.twenty.challenge.domain.models.Product
+import br.group.twenty.challenge.application.adapters.product.CreateProduct
+import br.group.twenty.challenge.application.adapters.product.DeleteProduct
+import br.group.twenty.challenge.application.adapters.product.FindProduct
+import br.group.twenty.challenge.application.port.output.UpdateProductOutputPort
+import br.group.twenty.challenge.domain.models.product.Product
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/v1/products")
 class ProductController(
-    private val createProductUseCase: CreateProductUseCase,
-    private val findProductUseCase: FindProductUseCase,
-    private val updateProductUseCase: UpdateProductUseCase,
-    private val deleteProductUseCase: DeleteProductUseCase,
+    private val createProductUseCase: CreateProduct,
+    private val findProductUseCase: FindProduct,
+    private val updateProductUseCase: UpdateProductOutputPort,
+    private val deleteProductUseCase: DeleteProduct,
 ) {
 
     @PostMapping
-    fun creaeProduct(@RequestBody productRequest: Product): ResponseEntity<Any> =
+    fun createProduct(@RequestBody productRequest: Product): ResponseEntity<Any> =
         ResponseEntity.status(CREATED).body(createProductUseCase.createProduct(productRequest))
 
     @GetMapping("/{id}")
