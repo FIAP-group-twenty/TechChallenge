@@ -11,4 +11,8 @@ class FindProductAdapter(private val repository: ProductJpaRepository) : FindPro
     override fun findProductById(id: Int): ProductEntity? {
         return repository.findByIdProduct(id)
     }
+
+    override fun findProductByCategory(category: String): ProductEntity? {
+        return repository.findByCategoryProduct(category)
+    }
 }

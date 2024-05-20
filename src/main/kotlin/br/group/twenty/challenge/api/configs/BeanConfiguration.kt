@@ -8,7 +8,12 @@ import br.group.twenty.challenge.application.adapters.order.CreateOrder
 import br.group.twenty.challenge.application.adapters.order.CreateOrderAdapter
 import br.group.twenty.challenge.application.adapters.order.FindListOfOrders
 import br.group.twenty.challenge.application.adapters.order.FindListOfOrdersAdapter
-import br.group.twenty.challenge.application.adapters.product.*
+import br.group.twenty.challenge.application.adapters.product.create.CreateProduct
+import br.group.twenty.challenge.application.adapters.product.create.CreateProductAdapter
+import br.group.twenty.challenge.application.adapters.product.delete.DeleteProduct
+import br.group.twenty.challenge.application.adapters.product.delete.DeleteProductAdapter
+import br.group.twenty.challenge.application.adapters.product.find.FindProduct
+import br.group.twenty.challenge.application.adapters.product.find.FindProductAdapter
 import br.group.twenty.challenge.application.port.input.product.CreateProductInputPort
 import br.group.twenty.challenge.application.port.input.product.DeleteProductInputPort
 import br.group.twenty.challenge.application.port.input.product.FindProductInputPort

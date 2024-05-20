@@ -27,4 +27,5 @@ data class ProductEntity(
         if (description.isBlank()) throw Exception("Description cannot be empty")
         if (price.equals(0.0)) throw Exception("Price cannot be 0")
     }
+
 }

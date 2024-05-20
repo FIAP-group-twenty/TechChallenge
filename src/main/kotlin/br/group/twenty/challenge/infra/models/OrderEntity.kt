@@ -20,3 +20,4 @@ data class OrderEntity(
     val lastUpdateOrder: LocalDateTime? = LocalDateTime.now(),//talvez mudar tipo
     val status: String
 )
+

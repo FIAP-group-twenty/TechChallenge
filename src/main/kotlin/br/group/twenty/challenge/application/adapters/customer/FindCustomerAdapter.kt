@@ -5,7 +5,7 @@ import br.group.twenty.challenge.domain.models.customer.Customer
 
 class FindCustomerAdapter(private val service: FindCustomerInputPort) : FindCustomer {
 
-    override fun findCustomerByCpf(cpf: String): Customer? {
+    override fun findCustomerByCpf(cpf: String): Customer {
         return service.findCustomerByCpf(cpf)
     }
 }
