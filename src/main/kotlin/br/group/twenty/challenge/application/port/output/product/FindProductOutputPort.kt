@@ -4,5 +4,5 @@ import br.group.twenty.challenge.infra.models.ProductEntity
 
 interface FindProductOutputPort {
     fun findProductById(id: Int): ProductEntity?
-    fun findProductByCategory(category: String): ProductEntity?
+    fun findProductByCategory(category: String):  List<ProductEntity>
 }

@@ -4,5 +4,5 @@ import br.group.twenty.challenge.domain.models.product.Product
 
 interface FindProduct {
     fun findProductById(id: Int): Product?
-    fun findProductByCategory(category: String): Product
+    fun findProductByCategory(category: String): List<Product>
 }

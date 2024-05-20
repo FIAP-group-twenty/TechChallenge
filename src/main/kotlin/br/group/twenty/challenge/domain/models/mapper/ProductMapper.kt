@@ -15,21 +15,18 @@ object ProductMapper {
         )
     }
 
-    fun toEntity(dto: Product): ProductEntity {
-        return ProductEntity(
-            name = dto.name,
-            category = dto.category,
-            price = dto.price,
-            description = dto.description
-        )
-    }
-
     fun ProductEntity.toEntity(dto: Product): ProductEntity {
         return this.apply {
             name = dto.name
             category = dto.category
             price = dto.price
             description = dto.description
+        }
+    }
+
+    fun List<ProductEntity>.toProducts(): List<Product> {
+        return this.map { productEntity ->
+            toDTO(productEntity)
         }
     }
 }

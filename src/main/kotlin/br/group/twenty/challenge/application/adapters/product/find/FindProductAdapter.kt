@@ -9,7 +9,7 @@ class FindProductAdapter(private val service: FindProductInputPort) : FindProduc
         return service.findProductById(id)
     }
 
-    override fun findProductByCategory(category: String): Product {
+    override fun findProductByCategory(category: String): List<Product> {
         return service.findProductByCategory(category)
     }
 }

@@ -4,6 +4,7 @@ import br.group.twenty.challenge.application.port.input.product.FindProductInput
 import br.group.twenty.challenge.application.port.output.product.FindProductOutputPort
 import br.group.twenty.challenge.domain.base.ResourceNotFoundException
 import br.group.twenty.challenge.domain.models.mapper.ProductMapper
+import br.group.twenty.challenge.domain.models.mapper.ProductMapper.toProducts
 import br.group.twenty.challenge.domain.models.product.Product
 
 class FindProductService(
@@ -22,13 +23,15 @@ class FindProductService(
         }
     }
 
-    override fun findProductByCategory(category: String): Product {
+    override fun findProductByCategory(category: String): List<Product> {
         try {
-            repository.findProductByCategory(category)?.apply {
-                ProductMapper.toDTO(this)
+            repository.findProductByCategory(category).apply {
+                if (this.firstOrNull() == null) {
+                    throw ResourceNotFoundException("Product not found for category: $category")
+                } else {
+                    return this.toProducts()
+                }
             }
-            throw ResourceNotFoundException("Product not found for category: $category")
-
         } catch (ex: Exception) {
             throw Exception(ex)
         }

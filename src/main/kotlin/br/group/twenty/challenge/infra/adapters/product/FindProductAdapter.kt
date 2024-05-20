@@ -12,7 +12,7 @@ class FindProductAdapter(private val repository: ProductJpaRepository) : FindPro
         return repository.findByIdProduct(id)
     }
 
-    override fun findProductByCategory(category: String): ProductEntity? {
-        return repository.findByCategoryProduct(category)
+    override fun findProductByCategory(category: String): List<ProductEntity> {
+        return repository.findByCategory(category)
     }
 }

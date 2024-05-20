@@ -23,7 +23,7 @@ class ProductController(
         ResponseEntity.status(CREATED).body(createProduct.createProduct(productRequest))
 
     @GetMapping("/{category}")
-    fun getProductByCategory(@PathVariable category: String): ResponseEntity<Any> {
+    fun getProductByCategory(@PathVariable category: String): ResponseEntity<List<Any>> {
         return ResponseEntity.ok(findProduct.findProductByCategory(category))
     }
 
