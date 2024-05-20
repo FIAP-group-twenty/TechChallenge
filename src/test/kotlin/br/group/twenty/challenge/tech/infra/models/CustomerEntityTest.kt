@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.tech.domain
+package br.group.twenty.challenge.tech.infra.models
 
 import br.group.twenty.challenge.infra.models.CustomerEntity
 import org.junit.jupiter.api.Assertions.assertEquals
