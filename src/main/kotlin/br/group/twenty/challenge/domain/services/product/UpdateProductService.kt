@@ -15,7 +15,7 @@ class UpdateProductService(
                 return Product(
                     id = updatedProductEntity.idProduct,
                     name = updatedProductEntity.name,
-                    category = updatedProductEntity.category,
+                    category =updatedProductEntity.category,
                     price = updatedProductEntity.price,
                     description = updatedProductEntity.description
                 )

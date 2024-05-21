@@ -1,10 +1,7 @@
 package br.group.twenty.challenge.infra.models
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
+import jakarta.persistence.*
 import jakarta.persistence.GenerationType.IDENTITY
-import jakarta.persistence.Id
-import jakarta.persistence.Table
 
 @Entity
 @Table(name = "tb_product")
@@ -13,9 +10,9 @@ data class ProductEntity(
     @GeneratedValue(strategy = IDENTITY)
     val idProduct: Int? = null,
     var name: String,
-    var category: String,
     var price: Double,
-    var description: String
+    var description: String,
+    var category: String
 ) {
     init {
         validProductFields()
@@ -27,4 +24,5 @@ data class ProductEntity(
         if (description.isBlank()) throw Exception("Description cannot be empty")
         if (price.equals(0.0)) throw Exception("Price cannot be 0")
     }
+
 }

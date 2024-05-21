@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.application.adapters.product
+package br.group.twenty.challenge.application.adapters.product.create
 
 import br.group.twenty.challenge.application.port.input.product.CreateProductInputPort
 import br.group.twenty.challenge.domain.models.product.Product

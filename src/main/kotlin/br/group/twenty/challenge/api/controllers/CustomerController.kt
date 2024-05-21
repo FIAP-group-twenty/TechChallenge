@@ -21,11 +21,6 @@ class CustomerController(
 
     @GetMapping("/{cpf}")
     fun getCustomerByCpf(@PathVariable cpf: String): ResponseEntity<Any> {
-        val customer = findCustomer.findCustomerByCpf(cpf)
-        return if (customer != null) {
-            ResponseEntity.ok(customer)
-        } else {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found for CPF: $cpf")
-        }
+        return ResponseEntity.ok(findCustomer.findCustomerByCpf(cpf))
     }
 }
