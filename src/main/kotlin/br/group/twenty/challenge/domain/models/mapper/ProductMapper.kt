@@ -9,7 +9,7 @@ object ProductMapper {
     fun toDTO(entity: ProductEntity): Product {
         return Product(
             name = entity.name,
-            category = entity.category.name,
+            category = entity.category?.name,
             price = entity.price,
             description = entity.description,
             id = entity.idProduct
@@ -19,7 +19,7 @@ object ProductMapper {
     fun ProductEntity.toEntity(dto: Product): ProductEntity {
         return this.apply {
             name = dto.name
-            category = CategoryEnum.valueOf(dto.category)
+            category = dto.category?.let { CategoryEnum.valueOf(it) }
             price = dto.price
             description = dto.description
         }

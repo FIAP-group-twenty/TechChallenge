@@ -43,10 +43,7 @@ class CreateProductAdapterTest {
         val input = Product(name = "Big Mac", category = "COMBO", description = "inclui batata", price = 20.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
-        assertEquals(
-            "No enum constant br.group.twenty.challenge.domain.models.enum.CategoryEnum.COMBO",
-            exception.message
-        )
+        assertEquals("Category is invalid", exception.message)
     }
 
     @Test
@@ -54,7 +51,7 @@ class CreateProductAdapterTest {
         val input = Product(name = " ", category = LANCHE.name, description = "veg", price = 15.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
-        assertEquals("Name cannot be empty", exception.message)
+        assertEquals("Name cannot be empty or null", exception.message)
     }
 
     @Test
@@ -62,7 +59,7 @@ class CreateProductAdapterTest {
         val input = Product(name = "Salada", category = ACOMPANHAMENTO.name, description = " ", price = 10.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
-        assertEquals("Description cannot be empty", exception.message)
+        assertEquals("Description cannot be empty or null", exception.message)
     }
 
     @Test
@@ -70,6 +67,38 @@ class CreateProductAdapterTest {
         val input = Product(name = "Bolo", category = SOBREMESA.name, description = "zero açucar", price = 0.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
-        assertEquals("Price cannot be 0", exception.message)
+        assertEquals("Price cannot be 0 or null", exception.message)
+    }
+
+    @Test
+    fun `Should throw an error if the category is null`() {
+        val input = Product(name = "Big Mac", description = "inclui batata", price = 20.0)
+        val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
+
+        assertEquals("Category cannot be null", exception.message)
+    }
+
+    @Test
+    fun `Should throw an error if the name is null`() {
+        val input = Product(category = LANCHE.name, description = "veg", price = 15.0)
+        val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
+
+        assertEquals("Name cannot be empty or null", exception.message)
+    }
+
+    @Test
+    fun `Should throw an error if the description is null`() {
+        val input = Product(name = "Salada", category = ACOMPANHAMENTO.name, price = 10.0)
+        val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
+
+        assertEquals("Description cannot be empty or null", exception.message)
+    }
+
+    @Test
+    fun `Should throw an error if the price is null`() {
+        val input = Product(name = "Bolo", category = SOBREMESA.name, description = "zero açucar")
+        val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
+
+        assertEquals("Price cannot be 0 or null", exception.message)
     }
 }

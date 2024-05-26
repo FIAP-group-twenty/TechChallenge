@@ -14,7 +14,7 @@ class DeleteProductService(
         try {
             findRepository.findProductById(id)?.apply {
                 repository.deleteProduct(id).apply {
-                    return Product(this!!.idProduct, name, category.name, price, description)
+                    return Product(this!!.idProduct, name, category?.name, price, description)
                 }
             }
             return null

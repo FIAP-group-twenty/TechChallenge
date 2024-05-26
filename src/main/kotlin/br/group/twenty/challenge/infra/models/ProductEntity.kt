@@ -15,20 +15,21 @@ data class ProductEntity(
     @Id
     @GeneratedValue(strategy = IDENTITY)
     val idProduct: Int? = null,
-    var name: String,
-    var price: Double,
-    var description: String,
+    var name: String? = null,
+    var price: Double? = null,
+    var description: String? = null,
     @Enumerated(value = STRING)
-    var category: CategoryEnum
+    var category: CategoryEnum? = null
 ) {
     init {
         validProductFields()
     }
 
     private fun validProductFields() {
-        if (name.isBlank()) throw Exception("Name cannot be empty")
-        if (description.isBlank()) throw Exception("Description cannot be empty")
-        if (price.equals(0.0)) throw Exception("Price cannot be 0")
+        if (name.isNullOrBlank()) throw Exception("Name cannot be empty or null")
+        if (price == null || price == 0.0) throw Exception("Price cannot be 0 or null")
+        if (description.isNullOrBlank()) throw Exception("Description cannot be empty or null")
+        if (category == null) throw Exception("Category cannot be null")
     }
 
 }
