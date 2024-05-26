@@ -16,7 +16,7 @@ class CreateProductService(
             val categoryList = CategoryEnum.entries.joinToString(",") { it.name }
 
             if (categoryList.contains(productRequest.category.uppercase(Locale.getDefault())).not())
-                throw Exception("Category is invalid")
+                throw Exception("Category is invalid") //todo: validar isso aqui
 
             repository.createProduct(productRequest).apply {
                 return ProductMapper.toDTO(this)

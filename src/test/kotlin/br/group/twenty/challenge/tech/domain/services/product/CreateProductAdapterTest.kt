@@ -40,7 +40,7 @@ class CreateProductAdapterTest {
 
     @Test
     fun `Should throw an error if the category is not valid`() {
-        val input = Product(name = "Coca-cola", category = "COMBO", description = "zero açucar", price = 5.0)
+        val input = Product(name = "Big Mac", category = "COMBO", description = "inclui batata", price = 20.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
         assertEquals(
@@ -51,7 +51,7 @@ class CreateProductAdapterTest {
 
     @Test
     fun `Should throw an error if the name is blank`() {
-        val input = Product(name = " ", category = LANCHE.name, description = "zero açucar", price = 5.0)
+        val input = Product(name = " ", category = LANCHE.name, description = "veg", price = 15.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
         assertEquals("Name cannot be empty", exception.message)
@@ -59,7 +59,7 @@ class CreateProductAdapterTest {
 
     @Test
     fun `Should throw an error if the description is blank`() {
-        val input = Product(name = "Coca-cola", category = ACOMPANHAMENTO.name, description = " ", price = 5.0)
+        val input = Product(name = "Salada", category = ACOMPANHAMENTO.name, description = " ", price = 10.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
         assertEquals("Description cannot be empty", exception.message)
@@ -67,7 +67,7 @@ class CreateProductAdapterTest {
 
     @Test
     fun `Should throw an error if the price equals zero`() {
-        val input = Product(name = "Coca-cola", category = SOBREMESA.name, description = "zero açucar", price = 0.0)
+        val input = Product(name = "Bolo", category = SOBREMESA.name, description = "zero açucar", price = 0.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
         assertEquals("Price cannot be 0", exception.message)
