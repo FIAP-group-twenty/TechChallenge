@@ -14,7 +14,7 @@ class ProductService(
     override fun createProduct(productRequest: Product): Product {
         try {
             repository.createProduct(productRequest).apply {
-                return Product(idProduct, name, category, price, description)
+                return Product(idProduct, name, category.name, price, description)
             }
         } catch (ex: Exception) {
             throw Exception(ex)
@@ -24,7 +24,7 @@ class ProductService(
     override fun findProductById(id: Int): Product? {
         try {
             repository.findProductById(id)?.apply {
-                return Product(this.idProduct, name, category, price, description)
+                return Product(this.idProduct, name, category.name, price, description)
             }
             return null
 
@@ -39,7 +39,7 @@ class ProductService(
             return Product(
                 updatedProductEntity!!.idProduct,
                 updatedProductEntity.name,
-                updatedProductEntity.category,
+                updatedProductEntity.category.name,
                 updatedProductEntity.price,
                 updatedProductEntity.description
             )
@@ -52,7 +52,7 @@ class ProductService(
         try {
             repository.findProductById(id)?.apply {
                 repository.deleteProduct(id).apply {
-                    return Product(this!!.idProduct, name, category, price, description)
+                    return Product(this!!.idProduct, name, category.name, price, description)
                 }
             }
             return null
