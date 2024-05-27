@@ -18,10 +18,10 @@ object ProductMapper {
 
     fun ProductEntity.toEntity(dto: Product): ProductEntity {
         return this.apply {
-            name = dto.name
-            category = dto.category?.let { CategoryEnum.valueOf(it) }
-            price = dto.price
-            description = dto.description
+            name = dto.name ?: this.name
+            category = dto.category?.let { CategoryEnum.valueOf(it) } ?: this.category
+            price = dto.price ?: this.price
+            description = dto.description ?: this.description
         }
     }
 
