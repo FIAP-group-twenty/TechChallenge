@@ -14,20 +14,20 @@ import br.group.twenty.challenge.application.adapters.product.delete.DeleteProdu
 import br.group.twenty.challenge.application.adapters.product.delete.DeleteProductAdapter
 import br.group.twenty.challenge.application.adapters.product.find.FindProduct
 import br.group.twenty.challenge.application.adapters.product.find.FindProductAdapter
-import br.group.twenty.challenge.application.port.input.product.CreateProductInputPort
-import br.group.twenty.challenge.application.port.input.product.DeleteProductInputPort
-import br.group.twenty.challenge.application.port.input.product.FindProductInputPort
 import br.group.twenty.challenge.application.port.input.customer.CreateCustomerInputPort
 import br.group.twenty.challenge.application.port.input.customer.FindCustomerInputPort
 import br.group.twenty.challenge.application.port.input.order.CreateOrderInputPort
 import br.group.twenty.challenge.application.port.input.order.FindListOfOrdersInputPort
-import br.group.twenty.challenge.application.port.output.product.CreateProductOutputPort
-import br.group.twenty.challenge.application.port.output.product.DeleteProductOutputPort
-import br.group.twenty.challenge.application.port.output.product.FindProductOutputPort
+import br.group.twenty.challenge.application.port.input.product.CreateProductInputPort
+import br.group.twenty.challenge.application.port.input.product.DeleteProductInputPort
+import br.group.twenty.challenge.application.port.input.product.FindProductInputPort
 import br.group.twenty.challenge.application.port.output.customer.CreateCustomerOutputPort
 import br.group.twenty.challenge.application.port.output.customer.FindCustomerOutputPort
 import br.group.twenty.challenge.application.port.output.order.CreateOrderOutputPort
 import br.group.twenty.challenge.application.port.output.order.FindListOfOrdersOutputPort
+import br.group.twenty.challenge.application.port.output.product.CreateProductOutputPort
+import br.group.twenty.challenge.application.port.output.product.DeleteProductOutputPort
+import br.group.twenty.challenge.application.port.output.product.FindProductOutputPort
 import br.group.twenty.challenge.domain.services.customer.CreateCustomerService
 import br.group.twenty.challenge.domain.services.customer.FindCustomerService
 import br.group.twenty.challenge.domain.services.order.CreateOrderService
@@ -47,6 +47,7 @@ class BeanConfiguration(
     val createProductRepository: CreateProductOutputPort,
     val findProductRepository: FindProductOutputPort,
     val deleteProductRepository: DeleteProductOutputPort,
+    val createOrderRepository: CreateOrderOutputPort
 ) {
 
     @Bean
@@ -117,5 +118,15 @@ class BeanConfiguration(
     @Bean
     fun deleteProduct(): DeleteProduct {
         return DeleteProductAdapter(deletePortProduct())
+    }
+
+    @Bean
+    fun createOrder(): CreateOrder {
+        return CreateOrderAdapter(createPortOrder())
+    }
+
+    @Bean
+    fun createPortOrder(): CreateOrderInputPort {
+        return CreateOrderService(createOrderRepository)
     }
 }
