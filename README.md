@@ -6,7 +6,7 @@ de autoatendimento de fast food usando a arquitetura hexagonal.
 ### Tecnologias usadas:
 * [Kotlin](https://kotlinlang.org/)
 * [SpringBoot](https://spring.io/projects/spring-boot)
-* [Liquibase](https://www.liquibase.org/)
+* [Flyway](https://flywaydb.org/)
 * [Docker](https://www.docker.com)
 * [Docker-compose](https://docs.docker.com/reference/cli/docker/compose/)
 
