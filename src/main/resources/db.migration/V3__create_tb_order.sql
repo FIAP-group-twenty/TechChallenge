@@ -5,6 +5,5 @@ create table tb_order(
     creation_order timestamp default CURRENT_TIMESTAMP(),
     last_update_order timestamp default CURRENT_TIMESTAMP(),
     status varchar(20) not null,
-
     FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer)
 );

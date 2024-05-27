@@ -16,11 +16,8 @@ data class OrderEntity(
     @NotNull
     val idCustomer: Int? = null,
 
-    val creationOrder: LocalDateTime? = LocalDateTime.now(),
-    val lastUpdateOrder: LocalDateTime? = LocalDateTime.now(),
-    val status: String,
-
-    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    val orderItens: List<OrderItemEntity>
+    val creationOrder: LocalDateTime? = LocalDateTime.now(),//talvez mudar tipo
+    val lastUpdateOrder: LocalDateTime? = LocalDateTime.now(),//talvez mudar tipo
+    val status: String
 )
 
