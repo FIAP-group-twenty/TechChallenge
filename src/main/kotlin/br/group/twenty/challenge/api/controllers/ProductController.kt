@@ -7,14 +7,7 @@ import br.group.twenty.challenge.application.port.output.product.UpdateProductOu
 import br.group.twenty.challenge.domain.models.product.Product
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/v1/products")
@@ -26,8 +19,8 @@ class ProductController(
 ) {
 
     @PostMapping
-    fun createProduct(@RequestBody createRequest: Product): ResponseEntity<Any> =
-        ResponseEntity.status(CREATED).body(createProduct.createProduct(createRequest))
+    fun createProduct(@RequestBody productRequest: Product): ResponseEntity<Any> =
+        ResponseEntity.status(CREATED).body(createProduct.createProduct(productRequest))
 
     @GetMapping("/{category}")
     fun getProductByCategory(@PathVariable category: String): ResponseEntity<List<Any>> {
@@ -35,8 +28,8 @@ class ProductController(
     }
 
     @PutMapping("/{id}")
-    fun updateProduct(@PathVariable id: Int, @RequestBody updateRequest: Product): ResponseEntity<Any> {
-        return ResponseEntity.ok(updateProduct.updateProduct(id, updateRequest))
+    fun updateProduct(@PathVariable id: Int, @RequestBody updatedProduct: Product): ResponseEntity<Any> {
+        return ResponseEntity.ok(updateProduct.updateProduct(id, updatedProduct))
     }
 
     @DeleteMapping("/{id}")
