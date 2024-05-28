@@ -15,7 +15,8 @@ class FindListOfOrdersService(private val repository: FindListOfOrdersOutputPort
                 idCustomer = entity.idCustomer,
                 creationOrder = entity.creationOrder,
                 lastUpdateOrder = entity.lastUpdateOrder,
-                status = entity.status
+                status = entity.status,
+                orderItems = entity.orderItens
             )
         }
     }

@@ -20,7 +20,7 @@ data class OrderEntity(
     val lastUpdateOrder: LocalDateTime? = LocalDateTime.now(),
     val status: String,
 
-    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL])
     val orderItens: List<OrderItemEntity>
 )
 

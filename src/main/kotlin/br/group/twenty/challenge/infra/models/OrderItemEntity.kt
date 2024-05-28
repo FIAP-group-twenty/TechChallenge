@@ -1,5 +1,6 @@
 package br.group.twenty.challenge.infra.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -9,6 +10,7 @@ data class OrderItemEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var idOrderItem: Int? = null,
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_order", nullable = false)
     var order: OrderEntity? = null,
