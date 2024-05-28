@@ -17,27 +17,28 @@ class CreateOrderAdapter(
 ) : CreateOrderOutputPort {
 
     override fun createOrder(createOrderModel: CreateOrderModel): OrderEntity {
-        val orderValue = BigDecimal.ZERO
+        var orderValue = BigDecimal.ZERO
         createOrderModel.productList.forEach {
-            orderValue.plus(
-                findProductAdapter.findProductById(it.id)?.price?.toBigDecimal()?.times(it.quantity.toBigDecimal())
-                    ?: BigDecimal.ZERO
-            )
+            val price =  findProductAdapter.findProductById(it.id)?.price?.toBigDecimal()
+            val quantity = it.quantity
+            orderValue += price!!.multiply(quantity.toBigDecimal())
         }
-
+        val order = OrderEntity(
+            orderValue = orderValue,
+            idCustomer = createOrderModel.idCustomer,
+            status = OrderStatus.STARTED.name,
+            orderItens = createOrderModel.productList.map { productModel ->
+                OrderItemEntity(
+                    idProduct = productModel.id,
+                    quantity = productModel.quantity,
+                )
+            }
+        )
+        order.orderItens.forEach {
+            it.order = order
+        }
         return repository.save(
-            OrderEntity(
-                orderValue = orderValue,
-                idCustomer = createOrderModel.idCustomer,
-                status = OrderStatus.STARTED.name,
-                orderItens = createOrderModel.productList.map { productModel ->
-                    OrderItemEntity(
-                        idProduct = productModel.id,
-                        quantity = productModel.quantity,
-                        order = null
-                    )
-                }
-            )
+            order
         )
     }
 }

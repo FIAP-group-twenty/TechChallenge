@@ -7,11 +7,11 @@ import jakarta.persistence.*
 data class OrderItemEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idOrderItem: Int? = null,
+    var idOrderItem: Int? = null,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_order", nullable = false)
-    val order: OrderEntity? = null,
+    var order: OrderEntity? = null,
 
     @Column(name = "id_product", nullable = false)
     val idProduct: Int,
