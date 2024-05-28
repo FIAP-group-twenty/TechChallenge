@@ -47,6 +47,7 @@ class BeanConfiguration(
     val createProductRepository: CreateProductOutputPort,
     val findProductRepository: FindProductOutputPort,
     val deleteProductRepository: DeleteProductOutputPort,
+    val createOrderRepository: CreateOrderOutputPort
 ) {
 
     @Bean
@@ -69,10 +70,7 @@ class BeanConfiguration(
         return FindCustomerAdapter(findPortCustomer())
     }
 
-    @Bean
-    fun createOrderInputPort(): CreateOrderInputPort {
-        return CreateOrderService(orderRepository)
-    }
+
 
     @Bean
     fun findPortListOfOrders(): FindListOfOrdersInputPort {
@@ -84,10 +82,7 @@ class BeanConfiguration(
         return FindListOfOrdersAdapter(findPortListOfOrders())
     }
 
-    @Bean
-    fun createAdapterOrder(): CreateOrder{
-        return CreateOrderAdapter(createOrderInputPort())
-    }
+
 
     @Bean
     fun createPortProduct(): CreateProductInputPort {
@@ -117,5 +112,15 @@ class BeanConfiguration(
     @Bean
     fun deleteProduct(): DeleteProduct {
         return DeleteProductAdapter(deletePortProduct())
+    }
+
+    @Bean
+    fun orderServicePort(): CreateOrderInputPort {
+        return CreateOrderService(createOrderRepository)
+    }
+
+    @Bean
+    fun orderService(): CreateOrder {
+        return CreateOrderAdapter(orderServicePort())
     }
 }

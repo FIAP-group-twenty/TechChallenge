@@ -23,7 +23,8 @@ class FindListOfOrdersAdapterTest{
                 idCustomer = 1,
                 creationOrder = LocalDateTime.now(),
                 lastUpdateOrder = LocalDateTime.now(),
-                status = "PENDING"
+                status = "PENDING",
+                mutableListOf()
             ),
             OrderEntity(
                 idOrder = 2,
@@ -31,7 +32,8 @@ class FindListOfOrdersAdapterTest{
                 idCustomer = 2,
                 creationOrder = LocalDateTime.now(),
                 lastUpdateOrder = LocalDateTime.now(),
-                status = "COMPLETED"
+                status = "COMPLETED",
+                mutableListOf()
             )
         )
 

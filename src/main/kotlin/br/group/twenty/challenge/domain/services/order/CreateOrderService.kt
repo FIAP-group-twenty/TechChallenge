@@ -15,7 +15,8 @@ class CreateOrderService(private val repository: CreateOrderOutputPort) : Create
                 idCustomer = idCustomer,
                 creationOrder = creationOrder,
                 lastUpdateOrder = lastUpdateOrder,
-                status = status
+                status = status,
+                orderItems = orderItens
             )
         }
     }
