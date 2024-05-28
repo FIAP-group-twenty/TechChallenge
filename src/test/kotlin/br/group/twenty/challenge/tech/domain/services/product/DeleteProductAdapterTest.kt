@@ -10,6 +10,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class DeleteProductAdapterTest {
     private val productJpaRepositoryMock = mockk<ProductJpaRepository>()
@@ -48,8 +49,8 @@ class DeleteProductAdapterTest {
         every { productJpaRepositoryMock.findByIdProduct(any()) }returns null
         every { productJpaRepositoryMock.delete(any()) }.returns(Unit)
 
-        val output = deleteRepository.deleteProduct(1)
+        val exception = assertThrows<Exception> { deleteRepository.deleteProduct(1) }
 
-        assertEquals(null, output?.idProduct)
+        assertEquals("Product not found", exception.message)
     }
 }

@@ -43,7 +43,7 @@ class CreateProductAdapterTest {
         val input = Product(name = "Big Mac", category = "COMBO", description = "inclui batata", price = 20.0)
         val exception = assertThrows<Exception> { createAdapter.createProduct(input) }
 
-        assertEquals("Category is invalid", exception.message)
+        assertEquals("No enum constant br.group.twenty.challenge.domain.models.enum.CategoryEnum.COMBO", exception.message)
     }
 
     @Test
