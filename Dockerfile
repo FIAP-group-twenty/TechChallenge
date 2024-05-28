@@ -22,11 +22,10 @@ COPY src ./src
 
 RUN gradle build --no-daemon
 
-FROM openjdk:17-ea-10-alpine3.13
+FROM openjdk:17-jdk-slim
 
 COPY --from=builder /app/build/libs/*.jar app.jar
 
 EXPOSE 8080
-EXPOSE 3306
 
 CMD ["java", "-jar", "app.jar"]
