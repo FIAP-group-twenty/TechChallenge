@@ -1,4 +1,4 @@
-package br.group.twenty.challenge.tech.domain.services
+package br.group.twenty.challenge.tech.domain.services.customer
 
 import br.group.twenty.challenge.domain.models.customer.CreateCustomer
 import br.group.twenty.challenge.infra.adapters.customer.CreateCustomerAdapter

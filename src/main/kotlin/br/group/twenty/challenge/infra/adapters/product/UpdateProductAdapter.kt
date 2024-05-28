@@ -12,9 +12,8 @@ import org.springframework.stereotype.Repository
 class UpdateProductAdapter(private val repository: ProductJpaRepository) : UpdateProductOutputPort {
     override fun updateProduct(id: Int, product: Product): ProductEntity? {
         repository.findByIdProduct(id)?.apply {
-            // Update the fields of the existing product with the new values
             val productUpdate = this.toEntity(product)
-            // Save the updated product in the database
+
             return repository.save(productUpdate)
         }
         throw ResourceNotFoundException("Product not found")
