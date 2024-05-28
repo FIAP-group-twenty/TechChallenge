@@ -17,6 +17,6 @@ class UpdateProductAdapter(private val repository: ProductJpaRepository) : Updat
             // Save the updated product in the database
             return repository.save(productUpdate)
         }
-        throw ResourceNotFoundException("Product not found") //todo: validar se isso aqui ta na camada certa
+        throw ResourceNotFoundException("Product not found")
     }
 }
