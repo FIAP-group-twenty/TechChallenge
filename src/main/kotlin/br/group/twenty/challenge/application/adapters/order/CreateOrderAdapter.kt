@@ -10,6 +10,5 @@ class CreateOrderAdapter(
 
     override fun createOrder(createOrderModel: CreateOrderModel): Order {
         return service.createOrder(createOrderModel)
-
     }
 }

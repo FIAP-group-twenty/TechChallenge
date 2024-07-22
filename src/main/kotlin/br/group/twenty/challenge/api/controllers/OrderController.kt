@@ -27,4 +27,9 @@ class OrderController(
         val orders = findListOfOrders.findListOfOrders()
         return ResponseEntity.ok(orders)
     }
+
+    @PutMapping
+    fun updateOrderStatus() {
+
+    } //todo: implementar update do status do order
 }

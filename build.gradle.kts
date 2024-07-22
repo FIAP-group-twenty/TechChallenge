@@ -33,8 +33,9 @@ dependencies {
 	implementation("org.flywaydb:flyway-mysql")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
-	testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+	implementation("com.mercadopago:sdk-java:2.1.24")
 
+	testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 //	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 	testImplementation("io.mockk:mockk:1.12.0")
