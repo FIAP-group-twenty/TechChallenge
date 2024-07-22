@@ -12,6 +12,7 @@ import br.group.twenty.challenge.infra.repositories.OrderJpaRepository
 import com.mercadopago.MercadoPagoConfig
 import com.mercadopago.client.payment.PaymentClient
 import com.mercadopago.client.payment.PaymentCreateRequest
+import com.mercadopago.client.payment.PaymentPayerRequest
 import org.springframework.stereotype.Repository
 import java.math.BigDecimal
 
@@ -34,6 +35,7 @@ class CreateOrderAdapter(
         val paymentClient = PaymentClient()
         val payment = paymentClient.create(PaymentCreateRequest.builder()
             .transactionAmount(orderValue)
+            .payer(PaymentPayerRequest.builder().id("1182098345-12JIUzreYBylDG").build())
             .paymentMethodId("pix")
             .build())
 
