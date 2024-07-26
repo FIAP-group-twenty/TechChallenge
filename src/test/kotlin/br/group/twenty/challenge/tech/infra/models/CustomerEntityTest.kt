@@ -1,6 +1,6 @@
 package br.group.twenty.challenge.tech.infra.models
 
-import br.group.twenty.challenge.infra.models.CustomerEntity
+import br.group.twenty.challenge.infrastructure.persistence.entities.CustomerEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
