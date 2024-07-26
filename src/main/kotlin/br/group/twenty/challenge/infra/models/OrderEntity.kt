@@ -21,6 +21,9 @@ data class OrderEntity(
     val status: String,
 
     @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL])
-    val orderItens: List<OrderItemEntity>
+    val orderItens: List<OrderItemEntity>,
+
+    @OneToOne(mappedBy = "order", cascade = [CascadeType.ALL])
+    val payment: PaymentEntity
 )
 

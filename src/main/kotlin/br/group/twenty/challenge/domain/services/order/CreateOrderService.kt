@@ -4,8 +4,11 @@ import br.group.twenty.challenge.application.port.input.order.CreateOrderInputPo
 import br.group.twenty.challenge.application.port.output.order.CreateOrderOutputPort
 import br.group.twenty.challenge.domain.models.order.CreateOrderModel
 import br.group.twenty.challenge.domain.models.order.Order
+import br.group.twenty.challenge.infra.adapters.mercadoPago.MercadoPagoQrCodeClient
 
-class CreateOrderService(private val repository: CreateOrderOutputPort) : CreateOrderInputPort {
+class CreateOrderService(
+    private val repository: CreateOrderOutputPort
+) : CreateOrderInputPort {
 
     override fun createOrder(createOrderModel: CreateOrderModel): Order {
         repository.createOrder(createOrderModel).apply {
@@ -16,7 +19,8 @@ class CreateOrderService(private val repository: CreateOrderOutputPort) : Create
                 creationOrder = creationOrder,
                 lastUpdateOrder = lastUpdateOrder,
                 status = status,
-                orderItems = orderItens
+                orderItems = orderItens,
+                payment = payment
             )
         }
     }
