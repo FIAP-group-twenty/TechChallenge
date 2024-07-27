@@ -4,9 +4,14 @@ import br.group.twenty.challenge.core.usecases.customer.CreateCustomerUseCase
 import br.group.twenty.challenge.core.usecases.customer.GetCustomerUseCase
 import br.group.twenty.challenge.core.usecases.order.CreateOrderUseCase
 import br.group.twenty.challenge.core.usecases.order.GetListOfOrdersUseCase
+import br.group.twenty.challenge.core.usecases.payment.CreatePaymentUseCase
+import br.group.twenty.challenge.core.usecases.payment.GetPaymentStatusUseCase
 import br.group.twenty.challenge.core.usecases.product.*
+import br.group.twenty.challenge.infrastructure.api.client.IPaymentDataSource
+import br.group.twenty.challenge.infrastructure.api.client.PaymentDataSource
 import br.group.twenty.challenge.infrastructure.gateways.customer.CustomerGateway
 import br.group.twenty.challenge.infrastructure.gateways.order.OrderGateway
+import br.group.twenty.challenge.infrastructure.gateways.payment.PaymentGateway
 import br.group.twenty.challenge.infrastructure.gateways.product.ProductGateway
 import br.group.twenty.challenge.infrastructure.persistence.jpa.ICustomerDataSource
 import br.group.twenty.challenge.infrastructure.persistence.jpa.IOrderDataSource
@@ -28,7 +33,7 @@ class BeanConfiguration(
 
     @Bean
     fun createCustomerUseCase(): CreateCustomerUseCase {
-        return CreateCustomerUseCase(customerGateway(), getCustomerUseCase())
+        return CreateCustomerUseCase(customerGateway())
     }
 
     @Bean
@@ -38,12 +43,12 @@ class BeanConfiguration(
 
     @Bean
     fun orderGateway(): OrderGateway {
-        return OrderGateway(orderDataSource, productDataSource)
+        return OrderGateway(orderDataSource)
     }
 
     @Bean
     fun createOrderUseCase(): CreateOrderUseCase {
-        return CreateOrderUseCase(orderGateway())
+        return CreateOrderUseCase(orderGateway(), productGateway(), paymentGateway())
     }
 
     @Bean
@@ -63,7 +68,7 @@ class BeanConfiguration(
 
     @Bean
     fun deleteProductUseCase(): DeleteProductUseCase {
-        return DeleteProductUseCase(productGateway(), getProductByIdUseCase())
+        return DeleteProductUseCase(productGateway())
     }
 
     @Bean
@@ -78,6 +83,21 @@ class BeanConfiguration(
 
     @Bean
     fun updateProductUseCase(): UpdateProductUseCase {
-        return UpdateProductUseCase(productGateway(), getProductByIdUseCase())
+        return UpdateProductUseCase(productGateway())
+    }
+
+    @Bean
+    fun paymentGateway(): PaymentGateway {
+        return PaymentGateway(PaymentDataSource())
+    }
+
+    @Bean
+    fun createPaymentUseCase(): CreatePaymentUseCase {
+        return CreatePaymentUseCase(paymentGateway())
+    }
+
+    @Bean
+    fun getPaymentStatusUseCase(): GetPaymentStatusUseCase {
+        return GetPaymentStatusUseCase(paymentGateway(), orderGateway())
     }
 }

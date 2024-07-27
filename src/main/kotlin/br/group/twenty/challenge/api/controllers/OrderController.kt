@@ -1,7 +1,7 @@
 package br.group.twenty.challenge.api.controllers;
 
 import br.group.twenty.challenge.api.presenters.OrderPresenter
-import br.group.twenty.challenge.core.entities.order.CreateOrderModel
+import br.group.twenty.challenge.core.entities.order.CreateOrder
 import br.group.twenty.challenge.core.entities.order.Order
 import br.group.twenty.challenge.core.usecases.order.CreateOrderUseCase
 import br.group.twenty.challenge.core.usecases.order.GetListOfOrdersUseCase
@@ -17,9 +17,9 @@ class OrderController(
 ) {
 
     @PostMapping
-    fun create(@RequestBody createOrderModel: CreateOrderModel): ResponseEntity<Order> {
+    fun create(@RequestBody createOrder: CreateOrder): ResponseEntity<Order> {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(OrderPresenter.formatterOrder(createOrderUseCase.execute(createOrderModel)))
+            .body(OrderPresenter.formatterOrder(createOrderUseCase.execute(createOrder)))
     }
 
     @GetMapping

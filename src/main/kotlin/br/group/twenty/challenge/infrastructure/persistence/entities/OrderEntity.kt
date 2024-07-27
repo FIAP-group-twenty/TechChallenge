@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 data class OrderEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idOrder: Int? = null,
+    var idOrder: Int? = null,
     val orderValue: BigDecimal,
 
     @NotNull
@@ -25,5 +25,15 @@ data class OrderEntity(
 
     @OneToOne(mappedBy = "order", cascade = [CascadeType.ALL])
     val payment: PaymentEntity
-)
+) {
+    fun formatter(order: OrderEntity): OrderEntity {
+        order.orderItens.forEach {
+            it.order = order
+        }
+
+        order.payment.order = order
+
+        return order
+    }
+}
 

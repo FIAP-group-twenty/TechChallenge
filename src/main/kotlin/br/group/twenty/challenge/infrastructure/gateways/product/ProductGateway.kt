@@ -2,8 +2,9 @@ package br.group.twenty.challenge.infrastructure.gateways.product
 
 import br.group.twenty.challenge.core.entities.mapper.ProductMapper.toEntity
 import br.group.twenty.challenge.core.entities.product.Product
-import br.group.twenty.challenge.core.gateways.IProductGateway
 import br.group.twenty.challenge.core.exceptions.ResourceNotFoundException
+import br.group.twenty.challenge.core.gateways.IProductGateway
+import br.group.twenty.challenge.infrastructure.exceptions.ResourceInternalServerException
 import br.group.twenty.challenge.infrastructure.persistence.entities.ProductEntity
 import br.group.twenty.challenge.infrastructure.persistence.jpa.IProductDataSource
 import org.springframework.stereotype.Repository
@@ -22,7 +23,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
                 )
             )
         } catch (ex: Exception) {
-            throw Exception("Failed to create product", ex)
+            throw ResourceInternalServerException("Failed to create product", ex)
         }
     }
 
@@ -31,7 +32,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
             dataSource.delete(product)
             return product
         } catch (ex: Exception) {
-            throw Exception("Failed to delete product: ${product.name}", ex)
+            throw ResourceInternalServerException("Failed to delete product: ${product.name}", ex)
         }
     }
 
@@ -42,7 +43,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
             }
             throw ResourceNotFoundException("Product not found")
         } catch (ex: Exception) {
-            throw Exception("Failed to find product with id: $id", ex)
+            throw ResourceInternalServerException("Failed to find product with id: $id", ex)
         }
     }
 
@@ -50,7 +51,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
         try {
             return dataSource.findByCategory(category)
         } catch (ex: Exception) {
-            throw Exception("Failed to find product with category: $category", ex)
+            throw ResourceInternalServerException("Failed to find product with category: $category", ex)
         }
     }
 
@@ -59,7 +60,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
             val productUpdate = oldProduct.toEntity(product)
             return dataSource.save(productUpdate)
         } catch (ex: Exception) {
-            throw Exception("Failed to update product with ID: ${oldProduct.idProduct}", ex)
+            throw ResourceInternalServerException("Failed to update product with ID: ${oldProduct.idProduct}", ex)
         }
     }
 }
