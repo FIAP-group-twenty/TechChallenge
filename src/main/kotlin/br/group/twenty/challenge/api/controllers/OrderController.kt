@@ -3,8 +3,10 @@ package br.group.twenty.challenge.api.controllers;
 import br.group.twenty.challenge.api.presenters.OrderPresenter
 import br.group.twenty.challenge.core.entities.order.CreateOrder
 import br.group.twenty.challenge.core.entities.order.Order
+import br.group.twenty.challenge.core.entities.order.UpdateOrder
 import br.group.twenty.challenge.core.usecases.order.CreateOrderUseCase
 import br.group.twenty.challenge.core.usecases.order.GetListOfOrdersUseCase
+import br.group.twenty.challenge.core.usecases.order.UpdateOrderUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,7 +15,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class OrderController(
     private val createOrderUseCase: CreateOrderUseCase,
-    private val getListOfOrdersUseCase: GetListOfOrdersUseCase
+    private val getListOfOrdersUseCase: GetListOfOrdersUseCase,
+    private val updateOrderUseCase: UpdateOrderUseCase
 ) {
 
     @PostMapping
@@ -27,8 +30,8 @@ class OrderController(
         return ResponseEntity.ok(OrderPresenter.formatterOrderList(getListOfOrdersUseCase.execute()))
     }
 
-    @PutMapping
-    fun updateOrderStatus() {
-
-    } //todo: implementar update do status do order
+    @PutMapping("/{id}")
+    fun updateOrderStatus(@PathVariable id: Int, @RequestBody order: UpdateOrder): ResponseEntity<Any> {
+        return ResponseEntity.ok(OrderPresenter.formatterOrder(updateOrderUseCase.execute(id, order)))
+    }
 }

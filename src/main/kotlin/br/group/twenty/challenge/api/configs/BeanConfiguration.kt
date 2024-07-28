@@ -4,6 +4,7 @@ import br.group.twenty.challenge.core.usecases.customer.CreateCustomerUseCase
 import br.group.twenty.challenge.core.usecases.customer.GetCustomerUseCase
 import br.group.twenty.challenge.core.usecases.order.CreateOrderUseCase
 import br.group.twenty.challenge.core.usecases.order.GetListOfOrdersUseCase
+import br.group.twenty.challenge.core.usecases.order.UpdateOrderUseCase
 import br.group.twenty.challenge.core.usecases.payment.CreatePaymentUseCase
 import br.group.twenty.challenge.core.usecases.payment.GetPaymentStatusUseCase
 import br.group.twenty.challenge.core.usecases.product.*
@@ -54,6 +55,11 @@ class BeanConfiguration(
     @Bean
     fun findListOfOrdersUseCase(): GetListOfOrdersUseCase {
         return GetListOfOrdersUseCase(orderGateway())
+    }
+
+    @Bean
+    fun updateOrderUseCase(): UpdateOrderUseCase{
+        return UpdateOrderUseCase(orderGateway())
     }
 
     @Bean
