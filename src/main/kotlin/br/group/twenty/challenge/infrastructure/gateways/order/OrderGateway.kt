@@ -21,7 +21,7 @@ class OrderGateway(
 
     override fun findListOfOrders(): List<OrderEntity> {
         try {
-            return orderDataSource.findAll()
+            return orderDataSource.findOrdersByStatusAndCreationTime()
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Unable to list orders, please try again later.", ex)
         }
