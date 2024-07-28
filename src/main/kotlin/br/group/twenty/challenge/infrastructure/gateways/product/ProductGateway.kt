@@ -10,11 +10,11 @@ import br.group.twenty.challenge.infrastructure.persistence.jpa.IProductDataSour
 import org.springframework.stereotype.Repository
 
 @Repository
-class ProductGateway(private val dataSource: IProductDataSource) : IProductGateway {
+class ProductGateway(private val productDataSource: IProductDataSource) : IProductGateway {
 
     override fun createProduct(product: Product): ProductEntity {
         try {
-            return dataSource.save(
+            return productDataSource.save(
                 ProductEntity(
                     name = product.name,
                     category = product.category,
@@ -29,7 +29,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
 
     override fun deleteProduct(product: ProductEntity): ProductEntity {
         try {
-            dataSource.delete(product)
+            productDataSource.delete(product)
             return product
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to delete product: ${product.name}", ex)
@@ -38,7 +38,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
 
     override fun findProductById(id: Int): ProductEntity {
         try {
-            dataSource.findByIdProduct(id)?.let { product ->
+            productDataSource.findByIdProduct(id)?.let { product ->
                 return product
             }
             throw ResourceNotFoundException("Product not found")
@@ -49,7 +49,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
 
     override fun findProductByCategory(category: String): List<ProductEntity> {
         try {
-            return dataSource.findByCategory(category)
+            return productDataSource.findByCategory(category)
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to find product with category: $category", ex)
         }
@@ -58,7 +58,7 @@ class ProductGateway(private val dataSource: IProductDataSource) : IProductGatew
     override fun updateProduct(oldProduct: ProductEntity, product: Product): ProductEntity {
         try {
             val productUpdate = oldProduct.toEntity(product)
-            return dataSource.save(productUpdate)
+            return productDataSource.save(productUpdate)
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to update product with ID: ${oldProduct.idProduct}", ex)
         }

@@ -2,6 +2,7 @@ package br.group.twenty.challenge.core.entities.mapper
 
 import br.group.twenty.challenge.core.entities.order.CreateOrder
 import br.group.twenty.challenge.core.entities.order.OrderStatus
+import br.group.twenty.challenge.core.entities.order.UpdateOrder
 import br.group.twenty.challenge.core.entities.payment.PaymentStatus
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderItemEntity
@@ -46,6 +47,13 @@ object OrderMapper {
                 payValue = createOrder.orderValue
             )
         )
+    }
+
+    fun OrderEntity.toEntity(dto: UpdateOrder): OrderEntity {
+        return this.apply {
+            status = dto.status
+            lastUpdateOrder = dto.lastUpdateOrder
+        }
     }
 
 }
