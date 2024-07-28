@@ -21,11 +21,11 @@ data class PaymentEntity(
 
     val qrCode: String? = null,
 
-    val status: String,
+    val status: String? = null,
 
-    val payValue: BigDecimal,
+    val payValue: BigDecimal? = null,
 
-    val creationPay: LocalDateTime? = LocalDateTime.now(),
+    val creationPay: LocalDateTime? = null,
 
-    val lastUpdatePay: LocalDateTime? = LocalDateTime.now()
+    val lastUpdatePay: LocalDateTime? = null,
 )

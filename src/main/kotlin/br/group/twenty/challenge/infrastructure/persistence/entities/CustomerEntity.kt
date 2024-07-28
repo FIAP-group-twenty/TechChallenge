@@ -1,6 +1,6 @@
 package br.group.twenty.challenge.infrastructure.persistence.entities
 
-import br.group.twenty.challenge.core.exceptions.ResourceBusinessException
+import br.group.twenty.challenge.infrastructure.exceptions.ResourceInternalServerException
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType.IDENTITY
@@ -22,9 +22,9 @@ data class CustomerEntity(
     }
 
     private fun validCustomerFields() {
-        if (!isValidEmail(email)) throw ResourceBusinessException("Invalid email")
-        if (!isValidCPF(cpf)) throw ResourceBusinessException("Invalid cpf")
-        if (name.isBlank()) throw ResourceBusinessException("Name cannot be empty")
+        if (!isValidEmail(email)) throw ResourceInternalServerException("Invalid email")
+        if (!isValidCPF(cpf)) throw ResourceInternalServerException("Invalid cpf")
+        if (name.isBlank()) throw ResourceInternalServerException("Name cannot be empty")
     }
 
     private fun isValidEmail(email: String): Boolean {

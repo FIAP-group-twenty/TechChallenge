@@ -4,10 +4,11 @@ import br.group.twenty.challenge.infrastructure.gateways.product.ProductGateway
 import br.group.twenty.challenge.infrastructure.persistence.entities.ProductEntity
 
 class DeleteProductUseCase(
-    private val gateway: ProductGateway,
-    private val getProductByIdUseCase: GetProductByIdUseCase
+    private val gateway: ProductGateway
 ) {
     fun execute(id: Int): ProductEntity {
-        return gateway.deleteProduct(getProductByIdUseCase.execute(id))
+        gateway.findProductById(id).let { product ->
+            return gateway.deleteProduct(product)
+        }
     }
 }
