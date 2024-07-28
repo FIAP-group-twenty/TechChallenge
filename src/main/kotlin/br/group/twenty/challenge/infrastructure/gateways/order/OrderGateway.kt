@@ -18,7 +18,7 @@ class OrderGateway(
         try {
             return orderDataSource.save(order.formatter(order))
         } catch (ex: Exception) {
-            throw ResourceInternalServerException("Unable to complete your order, please try again later.", ex)
+            throw ResourceInternalServerException("Unable to complete your order, please try again later 1.", ex)
         }
     }
 
@@ -32,7 +32,20 @@ class OrderGateway(
 
     override fun updateOrder(order: OrderEntity): OrderEntity {
         try {
-            return orderDataSource.save(order.formatter(order))
+            val myOrder = order.idOrder?.let { findOrder(it) }
+            val updatePayment = myOrder?.payment?.copy(
+                idPay = myOrder.payment.idPay,
+                order = myOrder.payment.order,
+                qrCode = myOrder.payment.qrCode,
+                status = myOrder.payment.status,
+                payValue = myOrder.payment.payValue,
+                creationPay = myOrder.payment.creationPay,
+                lastUpdatePay = myOrder.payment.lastUpdatePay
+            )
+            updatePayment?.let {
+                order.payment = updatePayment
+            }
+            return orderDataSource.save(order)
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to update order ${order.idOrder}.", ex)
         }
@@ -49,7 +62,7 @@ class OrderGateway(
 
     override fun findOrder(orderId: Int): OrderEntity {
         try {
-            orderDataSource.findByIdOrder(orderId)?.let{ order ->
+            orderDataSource.findByIdOrder(orderId)?.let { order ->
                 return order
             }
             throw ResourceNotFoundException("Order not found")
