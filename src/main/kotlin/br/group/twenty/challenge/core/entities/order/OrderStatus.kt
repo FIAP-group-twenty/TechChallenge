@@ -5,5 +5,6 @@ enum class OrderStatus {
     STARTED,
     CANCELED,
     IN_PROGRESS,
+    FINISHED,
     READY
 }

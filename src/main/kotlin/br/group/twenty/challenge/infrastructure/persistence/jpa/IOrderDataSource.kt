@@ -9,7 +9,7 @@ interface IOrderDataSource : JpaRepository<OrderEntity, Int> {
 
     @Query(
         "SELECT o FROM OrderEntity o " +
-        "WHERE o.status NOT IN ('PENDING', 'CANCELED') " +
+        "WHERE o.status NOT IN ('PENDING', 'CANCELED', 'FINISHED') " +
         "ORDER BY " +
         "CASE " +
         "  WHEN o.status = 'READY' THEN 1 " +
