@@ -4,11 +4,9 @@ import br.group.twenty.challenge.core.entities.order.CreateOrder
 import br.group.twenty.challenge.core.entities.order.OrderStatus
 import br.group.twenty.challenge.core.entities.order.UpdateOrder
 import br.group.twenty.challenge.core.entities.payment.PaymentStatus
-import br.group.twenty.challenge.core.entities.product.Product
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderItemEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.PaymentEntity
-import br.group.twenty.challenge.infrastructure.persistence.entities.ProductEntity
 import com.mercadopago.resources.payment.Payment
 
 object OrderMapper {
