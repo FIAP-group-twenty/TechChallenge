@@ -1,10 +1,11 @@
 package br.group.twenty.challenge.api.controllers
 
-import br.group.twenty.challenge.application.adapters.product.create.CreateProduct
-import br.group.twenty.challenge.application.adapters.product.delete.DeleteProduct
-import br.group.twenty.challenge.application.adapters.product.find.FindProduct
-import br.group.twenty.challenge.application.port.output.product.UpdateProductOutputPort
-import br.group.twenty.challenge.domain.models.product.Product
+import br.group.twenty.challenge.api.presenters.ProductPresenter
+import br.group.twenty.challenge.core.entities.product.Product
+import br.group.twenty.challenge.core.usecases.product.CreateProductUseCase
+import br.group.twenty.challenge.core.usecases.product.DeleteProductUseCase
+import br.group.twenty.challenge.core.usecases.product.GetProductByCategoryUseCase
+import br.group.twenty.challenge.core.usecases.product.UpdateProductUseCase
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,29 +13,30 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/v1/products")
 class ProductController(
-    private val createProduct: CreateProduct,
-    private val findProduct: FindProduct,
-    private val updateProduct: UpdateProductOutputPort,
-    private val deleteProduct: DeleteProduct,
+    private val createProductUseCase: CreateProductUseCase,
+    private val getProductByCategoryUseCase: GetProductByCategoryUseCase,
+    private val updateProductUseCase: UpdateProductUseCase,
+    private val deleteProductUseCase: DeleteProductUseCase
 ) {
 
     @PostMapping
     fun createProduct(@RequestBody productRequest: Product): ResponseEntity<Any> =
-        ResponseEntity.status(CREATED).body(createProduct.createProduct(productRequest))
+        ResponseEntity.status(CREATED)
+            .body(ProductPresenter.formatterProduct(createProductUseCase.execute(productRequest)))
 
     @GetMapping("/{category}")
     fun getProductByCategory(@PathVariable category: String): ResponseEntity<List<Any>> {
-        return ResponseEntity.ok(findProduct.findProductByCategory(category))
+        return ResponseEntity.ok(ProductPresenter.formatterProductList(getProductByCategoryUseCase.execute(category)))
     }
 
     @PutMapping("/{id}")
     fun updateProduct(@PathVariable id: Int, @RequestBody updatedProduct: Product): ResponseEntity<Any> {
-        return ResponseEntity.ok(updateProduct.updateProduct(id, updatedProduct))
+        return ResponseEntity.ok(ProductPresenter.formatterProduct(updateProductUseCase.execute(id, updatedProduct)))
     }
 
     @DeleteMapping("/{id}")
     fun deleteProduct(@PathVariable id: Int): ResponseEntity<Any> {
-        return ResponseEntity.ok().body(deleteProduct.deleteProduct(id))
+        return ResponseEntity.ok().body(ProductPresenter.formatterProduct(deleteProductUseCase.execute(id)))
     }
 
 }
