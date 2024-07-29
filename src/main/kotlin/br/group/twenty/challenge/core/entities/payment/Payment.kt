@@ -7,6 +7,7 @@ import java.time.LocalDateTime
 
 class Payment(
     val idPay: Int? = null,
+    val mercadoPagoId: Int? = null,
     val order: Order? = null,
     val qrCode: String? = null,
     val status: String,

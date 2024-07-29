@@ -1,5 +1,6 @@
 CREATE TABLE tb_order_item (
    id_pay INT AUTO_INCREMENT PRIMARY KEY,
+   mercado_pago_id INT NOT NULL,
    id_order INT NOT NULL,
    qr_code varchar(20),
    status varchar(20) not null,

@@ -3,7 +3,7 @@ package br.group.twenty.challenge.core.usecases.order
 import br.group.twenty.challenge.core.entities.mapper.OrderMapper
 import br.group.twenty.challenge.core.entities.order.CreateOrder
 import br.group.twenty.challenge.core.gateways.IOrderGateway
-import br.group.twenty.challenge.core.gateways.IPaymentGateway
+import br.group.twenty.challenge.core.gateways.IMercadoPagoPaymentGateway
 import br.group.twenty.challenge.core.gateways.IProductGateway
 import br.group.twenty.challenge.core.utils.CREATE_ORDER_ERROR
 import br.group.twenty.challenge.core.utils.CREATE_QRCODE_ERROR
@@ -16,7 +16,7 @@ import java.math.BigDecimal
 class CreateOrderUseCase(
     private val orderGateway: IOrderGateway,
     private val productGateway: IProductGateway,
-    private val paymentGateway: IPaymentGateway
+    private val paymentGateway: IMercadoPagoPaymentGateway
 ) {
     fun execute(createOrder: CreateOrder): OrderEntity {
         try {

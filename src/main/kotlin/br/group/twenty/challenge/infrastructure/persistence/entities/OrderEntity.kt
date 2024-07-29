@@ -1,14 +1,19 @@
 package br.group.twenty.challenge.infrastructure.persistence.entities
 
-import br.group.twenty.challenge.core.entities.order.OrderStatus
 import br.group.twenty.challenge.core.entities.order.OrderStatus.CANCELED
 import br.group.twenty.challenge.core.entities.order.OrderStatus.FINISHED
 import br.group.twenty.challenge.core.entities.order.OrderStatus.IN_PROGRESS
 import br.group.twenty.challenge.core.entities.order.OrderStatus.PENDING
 import br.group.twenty.challenge.core.entities.order.OrderStatus.STARTED
 import br.group.twenty.challenge.core.exceptions.ResourceBusinessException
-import br.group.twenty.challenge.infrastructure.exceptions.ResourceInternalServerException
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import jakarta.persistence.OneToOne
+import jakarta.persistence.Table
 import org.jetbrains.annotations.NotNull
 import java.math.BigDecimal
 import java.time.LocalDateTime

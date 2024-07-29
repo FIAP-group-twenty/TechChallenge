@@ -1,9 +1,8 @@
 package br.group.twenty.challenge.core.gateways
 
-import com.mercadopago.resources.payment.Payment
-import java.math.BigDecimal
+import br.group.twenty.challenge.infrastructure.persistence.entities.PaymentEntity
 
 interface IPaymentGateway {
-    fun getPaymentStatus(paymentId: Int): Payment
-    fun createPayment(amount: BigDecimal): Payment?
+    fun updatePayment(oldPayment: PaymentEntity, status: String): PaymentEntity?
+    fun findPayment(mercadoPagoId: Int): PaymentEntity
 }

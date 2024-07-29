@@ -8,7 +8,6 @@ import com.mercadopago.client.payment.PaymentCreateRequest
 import com.mercadopago.client.payment.PaymentPayerRequest
 import com.mercadopago.exceptions.MPApiException
 import com.mercadopago.resources.payment.Payment
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import java.math.BigDecimal
 
@@ -17,7 +16,7 @@ val MERCADO_PAGO_ID = "1182098345-12JIUzreYBylDG"
 val MERCADO_PAGO_PAYMENT_METHOD = "pix"
 
 @Component
-class PaymentDataSource() : IPaymentDataSource {
+class MercadoPagoMercadoPagoPaymentDataSource() : IMercadoPagoPaymentDataSource {
 
     init {
         MercadoPagoConfig.setAccessToken(MERCADO_PAGO_TOKEN)
@@ -25,7 +24,7 @@ class PaymentDataSource() : IPaymentDataSource {
 
     private val paymentClient = PaymentClient()
 
-    override fun getPaymentStatus(paymentId: Int): Payment {
+    override fun getPayment(paymentId: Int): Payment {
         try {
             return paymentClient.get(paymentId.toLong())
         } catch (ex: Exception) {
@@ -42,6 +41,7 @@ class PaymentDataSource() : IPaymentDataSource {
                     .transactionAmount(amount)
                     .payer(PaymentPayerRequest.builder().id(MERCADO_PAGO_ID).build())
                     .paymentMethodId(MERCADO_PAGO_PAYMENT_METHOD)
+                    .notificationUrl("http://challenge.group20.com/v1/payment/webhook")
                     .build()
             )
         } catch (ex: Exception) {

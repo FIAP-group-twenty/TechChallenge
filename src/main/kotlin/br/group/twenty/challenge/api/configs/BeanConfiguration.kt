@@ -8,11 +8,10 @@ import br.group.twenty.challenge.core.usecases.order.UpdateOrderUseCase
 import br.group.twenty.challenge.core.usecases.payment.CreatePaymentUseCase
 import br.group.twenty.challenge.core.usecases.payment.GetPaymentStatusUseCase
 import br.group.twenty.challenge.core.usecases.product.*
-import br.group.twenty.challenge.infrastructure.api.client.IPaymentDataSource
-import br.group.twenty.challenge.infrastructure.api.client.PaymentDataSource
+import br.group.twenty.challenge.infrastructure.api.client.MercadoPagoMercadoPagoPaymentDataSource
 import br.group.twenty.challenge.infrastructure.gateways.customer.CustomerGateway
 import br.group.twenty.challenge.infrastructure.gateways.order.OrderGateway
-import br.group.twenty.challenge.infrastructure.gateways.payment.PaymentGateway
+import br.group.twenty.challenge.infrastructure.gateways.payment.MercadoPagoMercadoPagoPaymentGateway
 import br.group.twenty.challenge.infrastructure.gateways.product.ProductGateway
 import br.group.twenty.challenge.infrastructure.persistence.jpa.ICustomerDataSource
 import br.group.twenty.challenge.infrastructure.persistence.jpa.IOrderDataSource
@@ -93,8 +92,8 @@ class BeanConfiguration(
     }
 
     @Bean
-    fun paymentGateway(): PaymentGateway {
-        return PaymentGateway(PaymentDataSource())
+    fun paymentGateway(): MercadoPagoMercadoPagoPaymentGateway {
+        return MercadoPagoMercadoPagoPaymentGateway(MercadoPagoMercadoPagoPaymentDataSource())
     }
 
     @Bean

@@ -1,9 +1,13 @@
 package br.group.twenty.challenge.core.entities.mapper
 
 import br.group.twenty.challenge.core.entities.order.CreateOrder
-import br.group.twenty.challenge.core.entities.order.OrderStatus
+import br.group.twenty.challenge.core.entities.order.OrderStatus.CANCELED
+import br.group.twenty.challenge.core.entities.order.OrderStatus.PENDING
+import br.group.twenty.challenge.core.entities.order.OrderStatus.STARTED
 import br.group.twenty.challenge.core.entities.order.UpdateOrder
 import br.group.twenty.challenge.core.entities.payment.PaymentStatus
+import br.group.twenty.challenge.core.entities.payment.PaymentStatus.APPROVED
+import br.group.twenty.challenge.core.entities.payment.PaymentStatus.DENIED
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderItemEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.PaymentEntity
@@ -16,17 +20,17 @@ object OrderMapper {
         val paymentStatus: String
         when (payment?.status) {
             "approved" -> {
-                orderStatus = OrderStatus.STARTED.name
-                paymentStatus = PaymentStatus.APPROVED.name
+                orderStatus = STARTED.name
+                paymentStatus = APPROVED.name
             }
 
             "rejected" -> {
-                orderStatus = OrderStatus.CANCELED.name
-                paymentStatus = PaymentStatus.DENIED.name
+                orderStatus = CANCELED.name
+                paymentStatus = DENIED.name
             }
 
             else -> {
-                orderStatus = OrderStatus.PENDING.name
+                orderStatus = PENDING.name
                 paymentStatus = PaymentStatus.PENDING.name
             }
         }
@@ -42,6 +46,7 @@ object OrderMapper {
                 )
             },
             payment = PaymentEntity(
+                mercadoPagoId = payment?.id?.toInt(),
                 qrCode = payment?.pointOfInteraction?.transactionData?.qrCode,
                 status = paymentStatus,
                 payValue = createOrder.orderValue
@@ -54,6 +59,16 @@ object OrderMapper {
             status = dto.status
             lastUpdateOrder = dto.lastUpdateOrder
         }
+    }
+
+    fun toUpdateOrderRequest(payStatus: String): UpdateOrder {
+        val status = when (payStatus) {
+            APPROVED.name -> STARTED.name
+            DENIED.name -> CANCELED.name
+            else -> PENDING.name
+        }
+
+        return UpdateOrder(status = status)
     }
 
 }
