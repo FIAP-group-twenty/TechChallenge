@@ -1,5 +1,6 @@
 package br.group.twenty.challenge.infrastructure.persistence.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import lombok.ToString
 
@@ -10,7 +11,8 @@ data class OrderItemEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var idOrderItem: Int? = null,
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_order", nullable = false)
     @ToString.Exclude
     var order: OrderEntity? = null,
@@ -20,4 +22,8 @@ data class OrderItemEntity(
 
     @Column(nullable = false)
     val quantity: Int
-)
+){
+    override fun toString(): String {
+        return "OrderItemEntity(idOrderItem=$idOrderItem, idProduct=$idProduct, quantity=$quantity)"
+    }
+}

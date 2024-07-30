@@ -17,7 +17,7 @@ class PaymentController(
 
     }
 
-    @GetMapping("/status")
+    @GetMapping("/status/{orderId}")
     fun paymentStatus(@PathVariable orderId: Int): ResponseEntity<Payment> {
         return ResponseEntity.ok(PaymentPresenter.formatterPayment(paymentStatusUseCase.execute(orderId)))
     }

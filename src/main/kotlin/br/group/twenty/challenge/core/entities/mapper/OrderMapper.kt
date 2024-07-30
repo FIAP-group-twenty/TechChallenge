@@ -27,7 +27,7 @@ object OrderMapper {
                 )
             },
             payment = PaymentEntity(
-                qrCode = payment?.pointOfInteraction?.transactionData?.qrCode ?: "8762487hhdsjbdakhjhjdabhjadbhbajdad",
+                qrCode = payment?.pointOfInteraction?.transactionData?.qrCode,
                 status = paymentStatus,
                 payValue = createOrder.orderValue
             )
@@ -54,15 +54,6 @@ object OrderMapper {
         )
     }
 
-    fun toPayment(order: OrderEntity, payment: Payment?): PaymentEntity {
-        val paymentStatus = paymentStatus(payment)
-        return PaymentEntity(
-            qrCode = payment?.pointOfInteraction?.transactionData?.qrCode ?: "juhadjbbjdhahad7824787y9247924",
-            status = paymentStatus,
-            payValue = order.orderValue
-        )
-    }
-
     private fun paymentStatus(payment: Payment?): String {
         return when (payment?.status) {
             "approved" -> PaymentStatus.APPROVED.name
@@ -71,7 +62,7 @@ object OrderMapper {
         }
     }
 
-    fun orderStatus(payment: Payment?): String {
+    private fun orderStatus(payment: Payment?): String {
         return when (payment?.status) {
             "approved" -> OrderStatus.STARTED.name
             "rejected" -> OrderStatus.CANCELED.name
