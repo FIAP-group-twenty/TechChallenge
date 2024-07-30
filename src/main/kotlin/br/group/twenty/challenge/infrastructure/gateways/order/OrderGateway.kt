@@ -33,7 +33,7 @@ class OrderGateway(
 
     override fun updateOrderStatus(oldOrder: OrderEntity, order: UpdateOrder): OrderEntity {
         try {
-            val orderUpdate = oldOrder.validateStatus(order.status).toEntity(order)
+            val orderUpdate = oldOrder.toEntity(order) //todo: depois implementar validador de status de volta
             return orderDataSource.save(orderUpdate)
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to update order with ID: ${oldOrder.idOrder}", ex)

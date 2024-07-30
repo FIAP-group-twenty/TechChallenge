@@ -1,35 +1,35 @@
 package br.group.twenty.challenge.infrastructure.gateways.payment
 
+import br.group.twenty.challenge.core.entities.mapper.PaymentMapper.toEntity
+import br.group.twenty.challenge.core.exceptions.ResourceNotFoundException
 import br.group.twenty.challenge.core.gateways.IPaymentGateway
-import br.group.twenty.challenge.infrastructure.api.client.IPaymentDataSource
 import br.group.twenty.challenge.infrastructure.exceptions.ResourceInternalServerException
-import com.mercadopago.MercadoPagoConfig
-import com.mercadopago.client.payment.PaymentClient
-import com.mercadopago.client.payment.PaymentCreateRequest
-import com.mercadopago.client.payment.PaymentPayerRequest
-import com.mercadopago.resources.payment.Payment
+import br.group.twenty.challenge.infrastructure.persistence.entities.PaymentEntity
+import br.group.twenty.challenge.infrastructure.persistence.jpa.IPaymentDataSource
 import org.springframework.stereotype.Repository
-import java.math.BigDecimal
 
 @Repository
 class PaymentGateway(
-    private val dataSource: IPaymentDataSource
+    private val paymentDataSource: IPaymentDataSource
 ) : IPaymentGateway {
 
-    override fun getPaymentStatus(paymentId: Int): Payment {
+    override fun updatePayment(oldPayment: PaymentEntity, status: String): PaymentEntity? {
         try {
-            return dataSource.getPaymentStatus(paymentId)
+            val paymentUpdate = oldPayment.toEntity(status) //todo: todo: depois voltar validador do status
+            return paymentDataSource.save(paymentUpdate)
         } catch (ex: Exception) {
-            throw ResourceInternalServerException(exception = ex)
+            throw ResourceInternalServerException("Failed to update payment with ID: ${oldPayment.idPay}", ex)
         }
-
     }
 
-    override fun createPayment(amount: BigDecimal): Payment? {
-        return try {
-            dataSource.createPayment(amount)
+    override fun findPayment(mercadoPagoId: Int): PaymentEntity {
+        try {
+            paymentDataSource.findByMercadoPagoId(mercadoPagoId)?.let{ pay ->
+                return pay
+            }
+            throw ResourceNotFoundException("Payment not found")
         } catch (ex: Exception) {
-            null
+            throw ResourceInternalServerException("Failed to find payment $mercadoPagoId.", ex)
         }
     }
 }

@@ -1,9 +1,13 @@
 package br.group.twenty.challenge.core.entities.mapper
 
 import br.group.twenty.challenge.core.entities.order.CreateOrder
-import br.group.twenty.challenge.core.entities.order.OrderStatus
+import br.group.twenty.challenge.core.entities.order.OrderStatus.CANCELED
+import br.group.twenty.challenge.core.entities.order.OrderStatus.PENDING
+import br.group.twenty.challenge.core.entities.order.OrderStatus.STARTED
 import br.group.twenty.challenge.core.entities.order.UpdateOrder
 import br.group.twenty.challenge.core.entities.payment.PaymentStatus
+import br.group.twenty.challenge.core.entities.payment.PaymentStatus.APPROVED
+import br.group.twenty.challenge.core.entities.payment.PaymentStatus.DENIED
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderItemEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.PaymentEntity
@@ -27,6 +31,7 @@ object OrderMapper {
                 )
             },
             payment = PaymentEntity(
+                mercadoPagoId = payment?.id?.toInt(),
                 qrCode = payment?.pointOfInteraction?.transactionData?.qrCode,
                 status = paymentStatus,
                 payValue = createOrder.orderValue
@@ -56,18 +61,28 @@ object OrderMapper {
 
     private fun paymentStatus(payment: Payment?): String {
         return when (payment?.status) {
-            "approved" -> PaymentStatus.APPROVED.name
-            "rejected" -> PaymentStatus.DENIED.name
+            "approved" -> APPROVED.name
+            "rejected" -> DENIED.name
             else -> PaymentStatus.PENDING.name
         }
     }
 
     private fun orderStatus(payment: Payment?): String {
         return when (payment?.status) {
-            "approved" -> OrderStatus.STARTED.name
-            "rejected" -> OrderStatus.CANCELED.name
-            else -> OrderStatus.PENDING.name
+            "approved" -> STARTED.name
+            "rejected" -> CANCELED.name
+            else -> PENDING.name
         }
+    }
+
+    fun toUpdateOrderRequest(payStatus: String): UpdateOrder {
+        val status = when (payStatus) {
+            APPROVED.name -> STARTED.name
+            DENIED.name -> CANCELED.name
+            else -> PENDING.name
+        }
+
+        return UpdateOrder(status = status)
     }
 
 }
