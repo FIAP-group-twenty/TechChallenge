@@ -8,28 +8,13 @@ import br.group.twenty.challenge.infrastructure.persistence.entities.OrderEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderItemEntity
 import br.group.twenty.challenge.infrastructure.persistence.entities.PaymentEntity
 import com.mercadopago.resources.payment.Payment
+import java.math.BigDecimal
 
 object OrderMapper {
 
     fun toEntity(createOrder: CreateOrder, payment: Payment?): OrderEntity {
-        val orderStatus: String
-        val paymentStatus: String
-        when (payment?.status) {
-            "approved" -> {
-                orderStatus = OrderStatus.STARTED.name
-                paymentStatus = PaymentStatus.APPROVED.name
-            }
-
-            "rejected" -> {
-                orderStatus = OrderStatus.CANCELED.name
-                paymentStatus = PaymentStatus.DENIED.name
-            }
-
-            else -> {
-                orderStatus = OrderStatus.PENDING.name
-                paymentStatus = PaymentStatus.PENDING.name
-            }
-        }
+        val orderStatus = orderStatus(payment)
+        val paymentStatus = paymentStatus(payment)
 
         return OrderEntity(
             orderValue = createOrder.orderValue,
@@ -53,6 +38,35 @@ object OrderMapper {
         return this.apply {
             status = dto.status
             lastUpdateOrder = dto.lastUpdateOrder
+        }
+    }
+
+    fun status(payment: Payment, orderValue: BigDecimal): UpdateOrder {
+        val orderStatus = orderStatus(payment)
+        val paymentStatus = paymentStatus(payment)
+
+        return UpdateOrder(
+            status = orderStatus, payment = PaymentEntity(
+                qrCode = payment.pointOfInteraction?.transactionData?.qrCode,
+                status = paymentStatus,
+                payValue = orderValue
+            )
+        )
+    }
+
+    private fun paymentStatus(payment: Payment?): String {
+        return when (payment?.status) {
+            "approved" -> PaymentStatus.APPROVED.name
+            "rejected" -> PaymentStatus.DENIED.name
+            else -> PaymentStatus.PENDING.name
+        }
+    }
+
+    private fun orderStatus(payment: Payment?): String {
+        return when (payment?.status) {
+            "approved" -> OrderStatus.STARTED.name
+            "rejected" -> OrderStatus.CANCELED.name
+            else -> OrderStatus.PENDING.name
         }
     }
 
