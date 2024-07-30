@@ -15,7 +15,7 @@ class PaymentGateway(
 
     override fun updatePayment(oldPayment: PaymentEntity, status: String): PaymentEntity? {
         try {
-            val paymentUpdate = oldPayment.validateStatus(status).toEntity(status)
+            val paymentUpdate = oldPayment.toEntity(status) //todo: todo: depois voltar validador do status
             return paymentDataSource.save(paymentUpdate)
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to update payment with ID: ${oldPayment.idPay}", ex)
