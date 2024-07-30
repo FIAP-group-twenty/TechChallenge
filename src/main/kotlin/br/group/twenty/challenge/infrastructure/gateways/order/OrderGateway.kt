@@ -4,6 +4,7 @@ import br.group.twenty.challenge.core.entities.mapper.OrderMapper.toEntity
 import br.group.twenty.challenge.core.entities.order.UpdateOrder
 import br.group.twenty.challenge.core.exceptions.ResourceNotFoundException
 import br.group.twenty.challenge.core.gateways.IOrderGateway
+import br.group.twenty.challenge.core.utils.CREATE_ORDER_ERROR
 import br.group.twenty.challenge.infrastructure.exceptions.ResourceInternalServerException
 import br.group.twenty.challenge.infrastructure.persistence.entities.OrderEntity
 import br.group.twenty.challenge.infrastructure.persistence.jpa.IOrderDataSource
@@ -16,9 +17,9 @@ class OrderGateway(
 
     override fun createOrder(order: OrderEntity): OrderEntity {
         try {
-            return orderDataSource.save(order.formatter(order))
+            return orderDataSource.save(order)
         } catch (ex: Exception) {
-            throw ResourceInternalServerException("Unable to complete your order, please try again later.", ex)
+            throw ResourceInternalServerException(CREATE_ORDER_ERROR, ex)
         }
     }
 
@@ -27,14 +28,6 @@ class OrderGateway(
             return orderDataSource.findOrdersByStatusAndCreationTime()
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Unable to list orders, please try again later.", ex)
-        }
-    }
-
-    override fun updateOrder(order: OrderEntity): OrderEntity {
-        try {
-            return orderDataSource.save(order.formatter(order))
-        } catch (ex: Exception) {
-            throw ResourceInternalServerException("Failed to update order ${order.idOrder}.", ex)
         }
     }
 
@@ -49,7 +42,7 @@ class OrderGateway(
 
     override fun findOrder(orderId: Int): OrderEntity {
         try {
-            orderDataSource.findByIdOrder(orderId)?.let{ order ->
+            orderDataSource.findByIdOrder(orderId)?.let { order ->
                 return order
             }
             throw ResourceNotFoundException("Order not found")

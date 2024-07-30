@@ -35,6 +35,9 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 	implementation("com.mercadopago:sdk-java:2.1.24")
 
+	compileOnly("org.projectlombok:lombok:1.18.24")
+	annotationProcessor("org.projectlombok:lombok:1.18.24")
+
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 //	developmentOnly("org.springframework.boot:spring-boot-docker-compose")

@@ -5,13 +5,14 @@ import br.group.twenty.challenge.core.entities.payment.PaymentStatus.DENIED
 import br.group.twenty.challenge.core.exceptions.ResourceBusinessException
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType.EAGER
+import jakarta.persistence.FetchType.LAZY
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType.IDENTITY
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import lombok.ToString
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -25,8 +26,9 @@ data class PaymentEntity(
     var mercadoPagoId: Int? = null,
 
     @JsonIgnore
-    @OneToOne(fetch = EAGER)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "id_order", nullable = false)
+    @ToString.Exclude
     var order: OrderEntity? = null,
 
     val qrCode: String? = null,
@@ -37,8 +39,12 @@ data class PaymentEntity(
 
     val creationPay: LocalDateTime? = null,
 
-    var lastUpdatePay: LocalDateTime? = null,
+    var lastUpdatePay: LocalDateTime? = null
 ){
+    override fun toString(): String {
+        return "PaymentEntity(idPay=$idPay, qrCode=$qrCode, status=$status, payValue=$payValue)"
+    }
+
     fun validateStatus(status: String): PaymentEntity {
         return when {
             this.status in listOf(APPROVED.name, DENIED.name) ->
