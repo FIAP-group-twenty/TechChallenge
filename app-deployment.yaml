@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: challenge
-          image: danilo766/techchallenge:1
+          image: danilo766/techchallenge:3
           ports:
             - containerPort: 8080
           env:
