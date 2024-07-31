@@ -74,3 +74,8 @@ As imagens abaixo ilustram como é a arquitetura do projeto.
 
 <img src="/arquitetura-1.png">
 <img src="/arquitetura-2.png">
+
+## Apresentação do projeto
+Vídeo para a apresentação do projeto
+https://www.youtube.com/watch?v=QlvNxpPrik8.
+
