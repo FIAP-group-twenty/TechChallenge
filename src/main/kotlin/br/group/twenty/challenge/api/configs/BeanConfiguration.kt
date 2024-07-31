@@ -117,7 +117,7 @@ class BeanConfiguration(
 
     @Bean
     fun updatePayment(): UpdatePaymentUseCase {
-        return UpdatePaymentUseCase(mercadoPagoMercadoPagoPaymentGateway(), paymentGateway())
+        return UpdatePaymentUseCase(mercadoPagoMercadoPagoPaymentGateway(), paymentGateway(), orderGateway())
     }
 
 }
