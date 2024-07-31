@@ -35,6 +35,20 @@ spec:
                   key: SPRING_DATASOURCE_PASSWORD
           resources:
             requests:
-              cpu: "100m"
+              cpu: "250m"
+              memory: "512Mi"
             limits:
-              cpu: "200m"
+              cpu: "1"
+              memory: "1Gi"
+#          readinessProbe:
+#            httpGet:
+#              path: /api/v1/swagger-ui/index.html
+#              port: 8080
+#            initialDelaySeconds: 10
+#            periodSeconds: 5
+#          livenessProbe:
+#            httpGet:
+#              path: /api/v1/swagger-ui/index.html
+#              port: 8080
+#            initialDelaySeconds: 30
+#            periodSeconds: 10

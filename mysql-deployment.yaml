@@ -35,3 +35,21 @@ spec:
                 - "-p${MYSQL_ROOT_PASSWORD}"
             initialDelaySeconds: 20
             periodSeconds: 10
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+          livenessProbe:
+            exec:
+              command:
+                - "mysqladmin"
+                - "ping"
+                - "-h"
+                - "localhost"
+                - "-uroot"
+                - "-p${MYSQL_ROOT_PASSWORD}"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
