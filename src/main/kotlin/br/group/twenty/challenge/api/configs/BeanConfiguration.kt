@@ -9,10 +9,10 @@ import br.group.twenty.challenge.core.usecases.payment.CreatePaymentUseCase
 import br.group.twenty.challenge.core.usecases.payment.GetPaymentStatusUseCase
 import br.group.twenty.challenge.core.usecases.payment.UpdatePaymentUseCase
 import br.group.twenty.challenge.core.usecases.product.*
-import br.group.twenty.challenge.infrastructure.api.client.MercadoPagoMercadoPagoPaymentDataSource
+import br.group.twenty.challenge.infrastructure.api.client.MercadoPagoPaymentDataSource
 import br.group.twenty.challenge.infrastructure.gateways.customer.CustomerGateway
 import br.group.twenty.challenge.infrastructure.gateways.order.OrderGateway
-import br.group.twenty.challenge.infrastructure.gateways.payment.MercadoPagoMercadoPagoPaymentGateway
+import br.group.twenty.challenge.infrastructure.gateways.payment.MercadoPagoPaymentGateway
 import br.group.twenty.challenge.infrastructure.gateways.payment.PaymentGateway
 import br.group.twenty.challenge.infrastructure.gateways.product.ProductGateway
 import br.group.twenty.challenge.infrastructure.persistence.jpa.ICustomerDataSource
@@ -52,7 +52,7 @@ class BeanConfiguration(
 
     @Bean
     fun createOrderUseCase(): CreateOrderUseCase {
-        return CreateOrderUseCase(orderGateway(), productGateway(), mercadoPagoMercadoPagoPaymentGateway())
+        return CreateOrderUseCase(orderGateway(), productGateway(), paymentPartnerGateway())
     }
 
     @Bean
@@ -86,28 +86,23 @@ class BeanConfiguration(
     }
 
     @Bean
-    fun getProductByIdUseCase(): GetProductByIdUseCase {
-        return GetProductByIdUseCase(productGateway())
-    }
-
-    @Bean
     fun updateProductUseCase(): UpdateProductUseCase {
         return UpdateProductUseCase(productGateway())
     }
 
     @Bean
-    fun mercadoPagoMercadoPagoPaymentGateway(): MercadoPagoMercadoPagoPaymentGateway {
-        return MercadoPagoMercadoPagoPaymentGateway(MercadoPagoMercadoPagoPaymentDataSource())
+    fun paymentPartnerGateway(): MercadoPagoPaymentGateway {
+        return MercadoPagoPaymentGateway(MercadoPagoPaymentDataSource())
     }
 
     @Bean
     fun createPaymentUseCase(): CreatePaymentUseCase {
-        return CreatePaymentUseCase(mercadoPagoMercadoPagoPaymentGateway())
+        return CreatePaymentUseCase(paymentPartnerGateway())
     }
 
     @Bean
     fun getPaymentStatusUseCase(): GetPaymentStatusUseCase {
-        return GetPaymentStatusUseCase(mercadoPagoMercadoPagoPaymentGateway(), orderGateway())
+        return GetPaymentStatusUseCase(paymentPartnerGateway(), orderGateway())
     }
 
     @Bean
@@ -117,7 +112,7 @@ class BeanConfiguration(
 
     @Bean
     fun updatePayment(): UpdatePaymentUseCase {
-        return UpdatePaymentUseCase(mercadoPagoMercadoPagoPaymentGateway(), paymentGateway(), orderGateway())
+        return UpdatePaymentUseCase(paymentPartnerGateway(), paymentGateway(), orderGateway())
     }
 
 }

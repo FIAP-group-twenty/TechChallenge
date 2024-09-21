@@ -1,6 +1,5 @@
 package br.group.twenty.challenge.api.controllers
 
-import br.group.twenty.challenge.api.presenters.ProductPresenter
 import br.group.twenty.challenge.core.entities.product.Product
 import br.group.twenty.challenge.core.usecases.product.CreateProductUseCase
 import br.group.twenty.challenge.core.usecases.product.DeleteProductUseCase
@@ -22,21 +21,21 @@ class ProductController(
     @PostMapping
     fun createProduct(@RequestBody productRequest: Product): ResponseEntity<Any> =
         ResponseEntity.status(CREATED)
-            .body(ProductPresenter.formatterProduct(createProductUseCase.execute(productRequest)))
+            .body(createProductUseCase.execute(productRequest))
 
     @GetMapping("/{category}")
     fun getProductByCategory(@PathVariable category: String): ResponseEntity<List<Any>> {
-        return ResponseEntity.ok(ProductPresenter.formatterProductList(getProductByCategoryUseCase.execute(category)))
+        return ResponseEntity.ok(getProductByCategoryUseCase.execute(category))
     }
 
     @PutMapping("/{id}")
     fun updateProduct(@PathVariable id: Int, @RequestBody updatedProduct: Product): ResponseEntity<Any> {
-        return ResponseEntity.ok(ProductPresenter.formatterProduct(updateProductUseCase.execute(id, updatedProduct)))
+        return ResponseEntity.ok(updateProductUseCase.execute(id, updatedProduct))
     }
 
     @DeleteMapping("/{id}")
     fun deleteProduct(@PathVariable id: Int): ResponseEntity<Any> {
-        return ResponseEntity.ok().body(ProductPresenter.formatterProduct(deleteProductUseCase.execute(id)))
+        return ResponseEntity.ok().body(deleteProductUseCase.execute(id))
     }
 
 }

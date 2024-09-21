@@ -16,7 +16,7 @@ val MERCADO_PAGO_ID = "1182098345-12JIUzreYBylDG"
 val MERCADO_PAGO_PAYMENT_METHOD = "pix"
 
 @Component
-class MercadoPagoMercadoPagoPaymentDataSource() : IMercadoPagoPaymentDataSource {
+class MercadoPagoPaymentDataSource : IPaymentPartnerDataSource {
 
     init {
         MercadoPagoConfig.setAccessToken(MERCADO_PAGO_TOKEN)

@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType.IDENTITY
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.math.BigDecimal
 
 @Entity
 @Table(name = "tb_product")
@@ -14,7 +15,7 @@ data class ProductEntity(
     @GeneratedValue(strategy = IDENTITY)
     val idProduct: Int? = null,
     var name: String?,
-    var price: Double?,
+    var price: BigDecimal = BigDecimal.ZERO,
     var description: String?,
     var category: String?
 ) {
@@ -26,8 +27,7 @@ data class ProductEntity(
         if (name.isNullOrBlank()) throw ResourceBadRequestException("Name cannot be empty")
         if (category.isNullOrBlank()) throw ResourceBadRequestException("Category cannot be empty")
         if (description.isNullOrBlank()) throw ResourceBadRequestException("Description cannot be empty")
-        if (price?.equals(null) == true) throw ResourceBadRequestException("Price cannot be null")
-        if (price?.equals(0.0) == true) throw ResourceBadRequestException("Price cannot be 0")
+        if (price.equals(0.0)) throw ResourceBadRequestException("Price cannot be 0")
     }
 
 }

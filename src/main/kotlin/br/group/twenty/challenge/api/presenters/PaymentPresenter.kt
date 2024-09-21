@@ -9,7 +9,7 @@ object PaymentPresenter {
     fun formatterPayment(paymentInformation: PaymentInformation): Payment =
         Payment(
             idPay = paymentInformation.payment.id.toInt(),
-            order = OrderPresenter.formatterOrder(paymentInformation.order),
+            order = paymentInformation.order,
             qrCode = paymentInformation.payment.pointOfInteraction?.transactionData?.qrCode,
             status = getStatus(paymentInformation.payment.status),
             payValue = paymentInformation.order.orderValue,

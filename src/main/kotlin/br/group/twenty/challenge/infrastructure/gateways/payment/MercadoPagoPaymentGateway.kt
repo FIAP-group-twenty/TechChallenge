@@ -1,16 +1,16 @@
 package br.group.twenty.challenge.infrastructure.gateways.payment
 
-import br.group.twenty.challenge.core.gateways.IMercadoPagoPaymentGateway
-import br.group.twenty.challenge.infrastructure.api.client.IMercadoPagoPaymentDataSource
+import br.group.twenty.challenge.core.gateways.IPaymentPartnerGateway
+import br.group.twenty.challenge.infrastructure.api.client.IPaymentPartnerDataSource
 import br.group.twenty.challenge.infrastructure.exceptions.ResourceInternalServerException
 import com.mercadopago.resources.payment.Payment
 import org.springframework.stereotype.Repository
 import java.math.BigDecimal
 
 @Repository
-class MercadoPagoMercadoPagoPaymentGateway(
-    private val dataSource: IMercadoPagoPaymentDataSource
-) : IMercadoPagoPaymentGateway {
+class MercadoPagoPaymentGateway(
+    private val dataSource: IPaymentPartnerDataSource
+) : IPaymentPartnerGateway {
 
     override fun getPayment(paymentId: Int): Payment {
         try {

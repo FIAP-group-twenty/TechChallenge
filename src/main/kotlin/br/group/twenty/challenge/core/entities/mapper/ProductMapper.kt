@@ -5,12 +5,33 @@ import br.group.twenty.challenge.infrastructure.persistence.entities.ProductEnti
 
 object ProductMapper {
 
-    fun ProductEntity.toEntity(dto: Product): ProductEntity {
-        return this.apply {
-            name = dto.name
+    fun Product.updateProduct(dto: Product): ProductEntity {
+        return ProductEntity(
+            idProduct = dto.id,
+            name = dto.name,
+            price = dto.price,
+            description = dto.description,
             category = dto.category
-            price = dto.price
-            description = dto.description
-        }
+        )
+    }
+
+    fun Product.toEntity(): ProductEntity {
+        return ProductEntity(
+            idProduct = id,
+            name = name,
+            price = price,
+            description = description,
+            category = category
+        )
+    }
+
+    fun ProductEntity.toDto(): Product {
+        return Product(
+            id = idProduct,
+            name = name,
+            category = category,
+            price = price,
+            description = description,
+        )
     }
 }

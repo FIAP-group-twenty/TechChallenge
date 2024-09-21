@@ -1,9 +1,8 @@
 package br.group.twenty.challenge.core.entities.mapper
 
 import br.group.twenty.challenge.core.entities.order.CreateOrder
-import br.group.twenty.challenge.core.entities.order.OrderStatus.CANCELED
-import br.group.twenty.challenge.core.entities.order.OrderStatus.PENDING
-import br.group.twenty.challenge.core.entities.order.OrderStatus.STARTED
+import br.group.twenty.challenge.core.entities.order.Order
+import br.group.twenty.challenge.core.entities.order.OrderStatus.*
 import br.group.twenty.challenge.core.entities.order.UpdateOrder
 import br.group.twenty.challenge.core.entities.payment.PaymentStatus
 import br.group.twenty.challenge.core.entities.payment.PaymentStatus.APPROVED
@@ -16,12 +15,12 @@ import java.math.BigDecimal
 
 object OrderMapper {
 
-    fun toEntity(createOrder: CreateOrder, payment: Payment?): OrderEntity {
-        val orderStatus = orderStatus(payment)
-        val paymentStatus = paymentStatus(payment)
+    fun toEntity(createOrder: CreateOrder): OrderEntity {
+        val orderStatus = orderStatus(createOrder.payment)
+        val paymentStatus = paymentStatus(createOrder.payment)
 
         return OrderEntity(
-            orderValue = createOrder.orderValue,
+            orderValue = createOrder.totalValue,
             idCustomer = createOrder.idCustomer,
             status = orderStatus,
             orderItens = createOrder.products.map { productModel ->
@@ -31,18 +30,48 @@ object OrderMapper {
                 )
             },
             payment = PaymentEntity(
-                mercadoPagoId = payment?.id?.toInt(),
-                qrCode = payment?.pointOfInteraction?.transactionData?.qrCode,
+                mercadoPagoId = createOrder.payment?.id?.toInt(),
+                qrCode = createOrder.payment?.pointOfInteraction?.transactionData?.qrCode,
                 status = paymentStatus,
-                payValue = createOrder.orderValue
+                payValue = createOrder.totalValue
             )
         )
     }
 
-    fun OrderEntity.toEntity(dto: UpdateOrder): OrderEntity {
-        return this.apply {
-            status = dto.status
+    fun toDTO(order: OrderEntity) = Order(
+        idOrder = order.idOrder,
+        orderValue = order.orderValue,
+        idCustomer = order.idCustomer,
+        creationOrder = order.creationOrder,
+        lastUpdateOrder = order.lastUpdateOrder,
+        status = order.status,
+        orderItems = order.orderItens,
+        payment = order.payment
+    )
+
+    fun Order.toEntity() =
+        OrderEntity(
+            orderValue = orderValue,
+            idCustomer = idCustomer,
+            status = status,
+            orderItens = orderItems,
+            payment = payment,
+            lastUpdateOrder = lastUpdateOrder
+        )
+
+    fun Order.toEntity(dto: UpdateOrder) =
+        OrderEntity(
+            orderValue = orderValue,
+            idCustomer = idCustomer,
+            status = dto.status,
+            orderItens = orderItems,
+            payment = payment,
             lastUpdateOrder = dto.lastUpdateOrder
+        )
+
+    fun formatterOrderList(orders: List<OrderEntity>): List<Order> {
+        return orders.map { order ->
+            toDTO(order)
         }
     }
 

@@ -7,7 +7,7 @@ import br.group.twenty.challenge.infrastructure.persistence.entities.ProductEnti
 class UpdateProductUseCase(
     private val gateway: ProductGateway
 ) {
-    fun execute(id: Int, product: Product): ProductEntity {
+    fun execute(id: Int, product: Product): Product {
         gateway.findProductById(id).let { oldProduct ->
             return gateway.updateProduct(oldProduct, product)
         }
