@@ -30,26 +30,26 @@ jobs:
       run: |
         docker push ${{ secrets.DOCKER_IMAGE }}
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Instalar AWS CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y awscli
+  #   steps:
+  #   - name: Instalar AWS CLI
+  #     run: |
+  #       sudo apt-get update
+  #       sudo apt-get install -y awscli
 
-    - name: Configurar AWS CLI
-      run: |
-        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws configure set region ${{ secrets.AWS_REGION }}
+  #   - name: Configurar AWS CLI
+  #     run: |
+  #       aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #       aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       aws configure set region ${{ secrets.AWS_REGION }}
 
-    - name: Atualizar contexto do kubectl para EKS
-      run: |
-        aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
+  #   - name: Atualizar contexto do kubectl para EKS
+  #     run: |
+  #       aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
 
-    - name: Atualizar deployment no EKS
-      run: |
-        kubectl set image deployment/seu-deployment seu-container=${{ secrets.DOCKER_IMAGE }}:latest
+  #   - name: Atualizar deployment no EKS
+  #     run: |
+  #       kubectl set image deployment/seu-deployment seu-container=${{ secrets.DOCKER_IMAGE }}:latest
