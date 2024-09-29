@@ -1,13 +1,16 @@
 package br.group.twenty.challenge.core.usecases.payment
 
 import br.group.twenty.challenge.core.gateways.IOrderGateway
-import br.group.twenty.challenge.core.gateways.IMercadoPagoPaymentGateway
+import br.group.twenty.challenge.core.gateways.IPaymentPartnerGateway
 import br.group.twenty.challenge.core.utils.FIND_PAYMENT_INFORMATION_ERROR
 import br.group.twenty.challenge.infrastructure.api.entities.PaymentInformation
 import br.group.twenty.challenge.infrastructure.exceptions.ResourceBadRequestException
 import br.group.twenty.challenge.infrastructure.exceptions.ResourceInternalServerException
 
-class GetPaymentStatusUseCase(private val paymentGateway: IMercadoPagoPaymentGateway, private val orderGateway: IOrderGateway) {
+class GetPaymentStatusUseCase(
+    private val paymentGateway: IPaymentPartnerGateway,
+    private val orderGateway: IOrderGateway
+) {
     fun execute(orderId: Int): PaymentInformation {
         try {
             val order = orderGateway.findOrder(orderId)

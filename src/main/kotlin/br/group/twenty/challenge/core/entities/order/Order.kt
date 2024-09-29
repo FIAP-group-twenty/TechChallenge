@@ -9,8 +9,8 @@ data class Order(
     val idOrder: Int? = null,
     val orderValue: BigDecimal,
     val idCustomer: Int? = null,
-    val creationOrder: LocalDateTime? = LocalDateTime.now(),//talvez mudar tipo
-    val lastUpdateOrder: LocalDateTime? = LocalDateTime.now(),//talvez mudar tipo
+    val creationOrder: LocalDateTime? = LocalDateTime.now(),
+    val lastUpdateOrder: LocalDateTime? = LocalDateTime.now(),
     val status: String,
     val orderItems: List<OrderItemEntity>,
     val payment: PaymentEntity

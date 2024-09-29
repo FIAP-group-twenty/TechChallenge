@@ -1,6 +1,8 @@
 package br.group.twenty.challenge.infrastructure.gateways.product
 
+import br.group.twenty.challenge.core.entities.mapper.ProductMapper.toDto
 import br.group.twenty.challenge.core.entities.mapper.ProductMapper.toEntity
+import br.group.twenty.challenge.core.entities.mapper.ProductMapper.updateProduct
 import br.group.twenty.challenge.core.entities.product.Product
 import br.group.twenty.challenge.core.exceptions.ResourceNotFoundException
 import br.group.twenty.challenge.core.gateways.IProductGateway
@@ -12,9 +14,9 @@ import org.springframework.stereotype.Repository
 @Repository
 class ProductGateway(private val productDataSource: IProductDataSource) : IProductGateway {
 
-    override fun createProduct(product: Product): ProductEntity {
+    override fun createProduct(product: Product): Product {
         try {
-            return productDataSource.save(
+            val result = productDataSource.save(
                 ProductEntity(
                     name = product.name,
                     category = product.category,
@@ -22,24 +24,25 @@ class ProductGateway(private val productDataSource: IProductDataSource) : IProdu
                     description = product.description
                 )
             )
+            return result.toDto()
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to create product", ex)
         }
     }
 
-    override fun deleteProduct(product: ProductEntity): ProductEntity {
+    override fun deleteProduct(product: Product): Product {
         try {
-            productDataSource.delete(product)
+            productDataSource.delete(product.toEntity())
             return product
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to delete product: ${product.name}", ex)
         }
     }
 
-    override fun findProductById(id: Int): ProductEntity {
+    override fun findProductById(id: Int): Product {
         try {
             productDataSource.findByIdProduct(id)?.let { product ->
-                return product
+                return product.toDto()
             }
             throw ResourceNotFoundException("Product not found")
         } catch (ex: Exception) {
@@ -47,20 +50,24 @@ class ProductGateway(private val productDataSource: IProductDataSource) : IProdu
         }
     }
 
-    override fun findProductByCategory(category: String): List<ProductEntity> {
+    override fun findProductByCategory(category: String): List<Product> {
         try {
-            return productDataSource.findByCategory(category)
+            val result = productDataSource.findByCategory(category)
+            return result.map { productEntity ->
+                productEntity.toDto()
+            }
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to find product with category: $category", ex)
         }
     }
 
-    override fun updateProduct(oldProduct: ProductEntity, product: Product): ProductEntity {
+    override fun updateProduct(oldProduct: Product, product: Product): Product {
         try {
-            val productUpdate = oldProduct.toEntity(product)
-            return productDataSource.save(productUpdate)
+            val productUpdate = oldProduct.updateProduct(product)
+            val result = productDataSource.save(productUpdate)
+            return result.toDto()
         } catch (ex: Exception) {
-            throw ResourceInternalServerException("Failed to update product with ID: ${oldProduct.idProduct}", ex)
+            throw ResourceInternalServerException("Failed to update product with ID: ${oldProduct.name}", ex)
         }
     }
 }

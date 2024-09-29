@@ -1,6 +1,5 @@
 package br.group.twenty.challenge.api.controllers
 
-import br.group.twenty.challenge.api.presenters.CustomerPresenter
 import br.group.twenty.challenge.core.entities.customer.CreateCustomer
 import br.group.twenty.challenge.core.entities.customer.Customer
 import br.group.twenty.challenge.core.usecases.customer.CreateCustomerUseCase
@@ -19,11 +18,11 @@ class CustomerController(
     @PostMapping
     fun create(@RequestBody createCustomer: CreateCustomer): ResponseEntity<Customer> {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(CustomerPresenter.formatter(createCustomerUseCase.execute(createCustomer), createCustomer.cpf))
+            .body(createCustomerUseCase.execute(createCustomer))
     }
 
     @GetMapping("/{cpf}")
     fun getCustomerByCpf(@PathVariable cpf: String): ResponseEntity<Any> {
-        return ResponseEntity.ok(CustomerPresenter.formatter(getCustomerUseCase.execute(cpf), cpf))
+        return ResponseEntity.ok(getCustomerUseCase.execute(cpf))
     }
 }
