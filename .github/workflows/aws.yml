@@ -56,4 +56,4 @@ jobs:
 
     - name: Atualizar deployment no EKS
       run: |
-        kubectl set image deployment/seu-deployment seu-container=${{ secrets.DOCKER_IMAGE }}:latest
+        kubectl set image deployment/challenge seu-container=${{ secrets.DOCKER_IMAGE }}:latest
