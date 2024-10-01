@@ -32,11 +32,7 @@ class CustomerGateway(private val dataSource: ICustomerDataSource) : ICustomerGa
 
     override fun findCustomerByCpf(cpf: String): Customer? {
         try {
-            val result = dataSource.findByCpf(cpf)
-            result?.let { customer ->
-                return customer.toDto()
-            }
-            throw ResourceNotFoundException("Customer not found")
+            return dataSource.findByCpf(cpf)?.toDto()
         } catch (ex: Exception) {
             throw ResourceInternalServerException("Failed to find customer $cpf.", ex)
         }
